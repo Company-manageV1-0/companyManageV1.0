@@ -1,11 +1,8 @@
 <template>
 <div class="center">
-    <Icon type="arrow-left" />
-    <a-page-header
-      class="header"
-      title="管理员中心 ｜ 我的日志"
-      @back=" () => { this.$router.push({ path: '../manager_first/' }); } "
-    />
+    <span>管理员中心 / 日志统计</span>
+    <br/>
+    <hr/>
 <!--    {{logList}}-->
 <!--    <el-table :data="list" border stripe="">-->
 <!--        <el-table-column type="index" label="#"></el-table-column>-->
@@ -25,23 +22,39 @@
 <!--            <el-button type="text" @click="handleCreate" :append-to-body="true">编辑</el-button>-->
 <!--        </el-table-column>-->
 <!--    </el-table>-->
-    <el-table :data="showTableData" border stripe="">
+    <el-col span="7">
+        <el-input placeholder="请输入日志类型类型" v-model="typeInput" clearable></el-input>
+    </el-col>
+    <el-col span="4">
+        <el-button type="primary" @click="searchType">搜索</el-button>
+    </el-col>
+<!--    {{logList}}-->
+    <el-table :data="logList" border stripe="" max-height="570">
         <el-table-column type="index" label="#"></el-table-column>
-        <el-table-column label="ID" prop="id"></el-table-column>
-        <el-table-column label="信息" prop="message"></el-table-column>
-        <el-table-column label="等级" prop="levelString"></el-table-column>
-        <el-table-column label="创建时间" prop="createdTime"></el-table-column>
-        <el-table-column label="所在类" prop="loggerName"></el-table-column>
+        <el-table-column label="ID" prop="operId"></el-table-column>
+        <el-table-column label="模式" prop="operModul"></el-table-column>
+        <el-table-column label="类型" prop="operType"></el-table-column>
+        <el-table-column label="详情" prop="operDesc"></el-table-column>
+        <el-table-column label="用户" prop="operUserName"></el-table-column>
+        <el-table-column label="IP" prop="operIp"></el-table-column>
+        <el-table-column label="时间" prop="operCreateTime"></el-table-column>
 
     </el-table>
     <el-pagination
-      class="pagination"
-      background
-      layout="prev, pager, next"
-      :pager-count="5"
-      :page-count="pagecount"
-      @current-change="getTable"
-    ></el-pagination>
+            @current-change="handleCurrentChange"
+            :current-page.sync="currentPage1"
+            page-size="10"
+            layout="prev, pager, next"
+            :total="100">
+
+    </el-pagination>
+<!--    <div class="block">-->
+<!--        <span class="demonstration"></span>-->
+<!--        <el-pagination-->
+<!--                layout="prev, pager, next"-->
+<!--                :total="1000">-->
+<!--        </el-pagination>-->
+<!--    </div>-->
 </div>
 
     
@@ -55,55 +68,50 @@
         },
         data(){
             return{
-                testTableData:[],
-                showTableData:[],
+                typeInput:'',
+                logList:[],
+                currentPage1:1,
+                currentPage2:5,
+                currentPage3:5,
+                cuurentPage4:4,
+                page_index:1
+
             }
         },
         methods:{
-            getTable(currentPage) {
-                this.pagesize = 8;
-                //通过当前页数和每页限制条数 从总数组上分割要显示的数组
-                this.showTableData = this.testTableData.slice(
-                    (currentPage - 1) * this.pagesize,
-                    currentPage * this.pagesize
-                );
-                console.log(this.showTableData);
-            },
             queryuser(){
                 this.axios({
                     method:"get",
-                    url:"http://121.36.57.122:8080/logging/getAll?pageIndex=1&size=5000",
-                    headers: {'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzU2MTUwMX0.wziYra0H-c0SAjnTWxgFb-pver4HFyjHJ3Nt0PBzQQx2m8KrcHbXnFscD8-Dq_QL'}
+                    url:"http://121.36.57.122:8080/oper-log/get-all?pageIndex=1&size=5&startTime=2020-12-12 10:10:10&endTime=2020-12-14 10:10:10",
+                   headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
                 }).then(res =>{
                     console.log(res)
                     console.log(res.data)
-                    this.testTableData = res.data.result
-                    for (let TableData of this.testTableData) {
-                        TableData.message = TableData.message
-                            .toString()
-                            .substr(0, [11])
-                            .concat("...");
-                        TableData.createdTime = TableData.createdTime.replace(/T/g, "-");
-                        TableData.questionType = "    ".concat(TableData.questionType);
-                        // for(let i = 0;i<TableData.declareDescribe.length/20;i++){
-                            // TableData.declareDescribe.substr(i,[(i+1)*20]).concat("<br />")
-                        // }
-                        // console.log(TableData.softwareName + TableData.id)
-                    }
-                    //计算page总数
-                    this.pagecount =
-                    this.testTableData.length % 8 === 0
-                        ? this.testTableData.length / 8
-                        : (this.testTableData.length - (this.testTableData.length % 8)) /
-                            8 +
-                        1;
-                    // console.log(this.pagecount);
+                    this.logList = res.data.result
+                })
+            },
+            searchType(){
 
-
-                    this.getTable(1);
-
-
-
+            },
+            handleCurrentChange(){
+                this.page_index = this.page_index+1
+                console.log('每页${val}条');
+                this.axios({
+                    method:"get",
+                    url:"http://121.36.57.122:8080/logging/getAll",
+                    params:{
+                        pageIndex:this.page_index,
+                        size:5
+                    },
+                      headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
+                }).then(res =>{
+                    console.log(res)
+                    console.log(res.data)
+                    this.logList = res.data.result
                 })
             }
         }

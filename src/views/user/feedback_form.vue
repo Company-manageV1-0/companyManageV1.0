@@ -4,7 +4,7 @@
     <a-page-header
       class="header"
       title="用户中心 ｜ 我的反馈"
-      @back=" () => { this.$router.push({ path: '../user_first/' }); } "
+      @back=" () => { this.$router.push({ path: '../user_first/first' }); } "
     />
     <div class="container">
       <div class="form">
@@ -51,8 +51,7 @@
               id="notshow"
               ref="inputer"
             />
-            <br />
-            <p>附件大小不超过3M</p>
+            附件大小不超过3M
           </el-form-item>
 
           <el-form-item label="手机号">
@@ -153,7 +152,7 @@ export default {
         })
         .then((res) => {
           console.log(res);
-          this.file_url = res.result;
+          this.file_url = res.data.result;
           this.$message.success("上传文件成功");
         })
         .catch((error) => {
@@ -192,15 +191,15 @@ input {
 
 form {
   /* border: 1px solid black; */
-  width: 500px;
+  width: 700px;
 }
 
 .container {
   border: 1px solid white;
   /* height: 500px; */
   border-radius: 10px;
-  width: 800px;
-  margin-left: 200px;
+  width:90%;
+  margin-left: 5%;
   background: #fff;
 }
 
@@ -216,4 +215,9 @@ span {
   font-family: sans-serif;
   color: grey;
 }
+
+.el-form{
+  width: 800px;
+}
+
 </style>

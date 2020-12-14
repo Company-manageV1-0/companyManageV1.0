@@ -1,11 +1,8 @@
 <template>
     <div class="center">
-        <Icon type="arrow-left" />
-    <a-page-header
-      class="header"
-      title="管理员中心 ｜ 管理用户"
-      @back=" () => { this.$router.push({ path: '../manager_first/' }); } "
-    />
+        <span>管理员中心 / 管理用户</span>
+        <br/>
+        <hr/>
 
         <!-- 在这里写东西 -->
         <div class="search_text">
@@ -34,7 +31,10 @@
             <el-table-column label="注册时间" width="100px" prop="registerTime">
             </el-table-column>
             <el-table-column label="操作">
-                <el-button type="text" @click="handleCreate(index)" :append-to-body="true">编辑</el-button>
+            <template slot-scope="scope">
+                <el-button type="text" @click="handleCreate(scope.row.username,scope.row.id)" :append-to-body="true">编辑</el-button>
+            </template>
+<!--                <el-button type="text" @click="handleCreate(scope.row.index)" :append-to-body="true">编辑</el-button>-->
                 <!--                {{list[].username}}-->
                 <!--删除按钮-->
                 <!--                    <el-tooltip  effect="dark" content="删除此用户" placement="top" :enterable="false">-->
@@ -42,27 +42,27 @@
                 <!--                    </el-tooltip>-->
             </el-table-column>
         </el-table>
-        <el-dialog title="编辑" :visible.sync="dialogFormVisible" >
+        <el-dialog title="编辑" :visible.sync="dialogFormVisible" :data="currentUser">
             <el-form :model="user_form" :rules="rules" ref="user_form">
                 <el-form-item label="用户名" :label-width="formLabelWidth">
-                    <el-input v-model="user_form.username" auto-complete="off" ></el-input>
+                    <el-input v-model="currentUser.username" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="性别" :label-width="formLabelWidth">
-                    <el-input v-model="user_form.sex" auto-complete="off" property=""></el-input>
+                    <el-input v-model="currentUser.sex" auto-complete="off" property=""></el-input>
                 </el-form-item>
                 <el-form-item label="联系方式" :label-width="formLabelWidth">
-                    <el-input v-model="user_form.phone" auto-complete="off"></el-input>
+                    <el-input v-model="currentUser.phone" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱" :label-width="formLabelWidth">
-                    <el-input v-model="user_form.email" auto-complete="off"></el-input>
+                    <el-input v-model="currentUser.email" auto-complete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="注册时间" :label-width="formLabelWidth">
-                    <el-input v-model="user_form.registerTime" auto-complete="off"></el-input>
+                    <el-input v-model="currentUser.registerTime" auto-complete="off"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
-                <el-button type="primary" @click="editData('user_form')" >确 定</el-button>
+                <el-button type="primary" @click="editData('user_form',currentUser.username,currentUser.sex,currentUser.phone,currentUser.email)" >确 定</el-button>
             </div>
         </el-dialog>
         <!--        <el-dialog title="收货地址" :visible.sync="dialogFormVisible" >-->
@@ -99,7 +99,9 @@
 
             return {
                 list:[],
-                total_index: 0,
+                currentUser:[],
+                total_username: null,
+                total_id: null,
                 dialogTableVisible: false,
                 dialogFormVisible: false,
                 form: {
@@ -137,7 +139,9 @@
                 this.axios({
                     method:"get",
                     url:"http://121.36.57.122:8080/user/getAllUser",
-                    headers: {'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzU2MTUwMX0.wziYra0H-c0SAjnTWxgFb-pver4HFyjHJ3Nt0PBzQQx2m8KrcHbXnFscD8-Dq_QL'}
+                   headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
                 })
                     .then(res => {
                         console.log(res)
@@ -155,24 +159,48 @@
                 var element = document.getElementById("user_duty");
                 element.setAttribute()
             },
-            handleCreate(indexOfUser){
+            handleCreate(usernameOfUser,indexOfUser){
                 this.dialogFormVisible = true;
-                var something = indexOfUser
-                alert(something)
+                this.total_username = usernameOfUser;
+                this.total_id = indexOfUser;
+                alert(this.total_username)
+                this.axios({
+                    method:"get",
+                    url:"http://121.36.57.122:8080/user/accurate-select",
+                  headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
+                    params:{
+                        username:this.total_username
+                    }
+                }).then(res => {
+                    console.log(res)
+                    console.log(res.data)
+                    this.currentUser = res.data.result
+                })
+                // alert(something)
+                // console.log(something)
             },
-            editData(formName){
+            editData(formName,username_input,sex_input,phone_input,email_input){
+
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
-                        this.list[2].sex='男';
-                        this.edit=this.list[2];
+                        alert(this.total_id);
+                        alert('修改成功，请刷新页面查看');
+                        // this.list[2].sex='男';
+                        // this.edit=this.list[2];
                         this.axios({
                             method:"post",
                             url:"http://121.36.57.122:8080/user/update",
-                            headers: {'Authorization': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzU2MTUwMX0.wziYra0H-c0SAjnTWxgFb-pver4HFyjHJ3Nt0PBzQQx2m8KrcHbXnFscD8-Dq_QL'},
+                           headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
                             params:{
-                                id:'d9e7986c-6df9-40dc-b17d-94ebe35feac3',
-                                sex:'女'
+                                id:this.total_id,
+                                username:username_input,
+                                sex:sex_input,
+                                phone:phone_input,
+                                email:email_input
                             }
                         }).then(res=>{
                             console.log(res);

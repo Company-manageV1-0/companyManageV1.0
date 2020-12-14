@@ -360,7 +360,7 @@ import $ from  'jquery'
         }).then(res=>{
            console.log(res);
            
-           this.list = res.result ||res.data.result;
+           this.list = res.data.result;
          
             // console.log("list" + this.list);
            this.tableData4 = this.list
@@ -536,7 +536,7 @@ add_group_sure(){
           // let i = 0
            console.log(res)
             // if(res.result[0] == 1)
-             console.log(res.result.length)
+            //  console.log(res.data.result.length)
           // var len = res.result.length;
           
           // for(i;i<len;i++){
@@ -551,78 +551,81 @@ add_group_sure(){
           
           // $("input:checkbox[value='1']").attr('checked','true');
 
-          if(res.result[0] == 1){
+          if(res.data.result[0] == 1){
             console.log("is 1")
              $("input:checkbox[value='0']").attr('checked','true');
           }else{
-            console.log("not 1")
+            console.data.log("not 1")
              $("input:checkbox[value='0']").attr('checked',false);
           }
-          if(res.result[1] == 1){
+          if(res.data.result[1] == 1){
              $("input:checkbox[value='1']").attr('checked','true');
            }else{
              $("input:checkbox[value='1']").attr('checked',false);
           }
-           if(res.result[2] == 1){
+           if(res.data.result[2] == 1){
              $("input:checkbox[value='2']").attr('checked','true');
            }else{
              $("input:checkbox[value='2']").attr('checked',false);
           }
-           if(res.result[3] == 1){
+           if(res.data.result[3] == 1){
              $("input:checkbox[value='3']").attr('checked','true');
            }else{
              $("input:checkbox[value='3']").attr('checked',false);
           }
-           if(res.result[4] == 1){
+           if(res.data.result[4] == 1){
              $("input:checkbox[value='4']").attr('checked','true');
            }else{
              $("input:checkbox[value='4']").attr('checked',false);
           }
-           if(res.result[5] == 1){
+           if(res.data.result[5] == 1){
              $("input:checkbox[value='5']").attr('checked','true');
            }else{
              $("input:checkbox[value='5']").attr('checked',false);
           }
-           if(res.result[6] == 1){
+           if(res.data.result[6] == 1){
+             console.log(res.data.result[6])
              $("input:checkbox[value='6']").attr('checked','true');
            }else{
              $("input:checkbox[value='6']").attr('checked',false);
           }
-           if(res.result[7] == 1){
+           if(res.data.result[7] == 1){
+              console.log(res.data.result[7])
              $("input:checkbox[value='7']").attr('checked','true');
            }else{
+             console.log('dada')
              $("input:checkbox[value='7']").attr('checked',false);
           }
-           if(res.result[8] == 1){
+           if(res.data.result[8] == 1){
              $("input:checkbox[value='8']").attr('checked','true');
            }else{
              $("input:checkbox[value='8']").attr('checked',false);
           }
-           if(res.result[9] == 1){
+           if(res.data.result[9] == 1){
              $("input:checkbox[value='9']").attr('checked','true');
            }else{
              $("input:checkbox[value='9']").attr('checked',false);
           }
-           if(res.result[10] == 1){
+           if(res.data.result[10] == 1){
              $("input:checkbox[value='10']").attr('checked','true');
            }else{
              $("input:checkbox[value='10']").attr('checked',false);
           }
-           if(res.result[11] == 1){
+           if(res.data.result[11] == 1){
              $("input:checkbox[value='11']").attr('checked','true');
            }else{
              $("input:checkbox[value='11']").attr('checked',false);
           }
-           if(res.result[12] == 1){
+           if(res.data.result[12] == 1){
              $("input:checkbox[value='12']").attr('checked','true');
            }else{
              $("input:checkbox[value='12']").attr('checked',false);
           }
-           if(res.result[13] == 1){
+           if(res.data.result[13] == 1){
              $("input:checkbox[value='13']").attr('checked','true');
            }else{
              $("input:checkbox[value='13']").attr('checked',false);
-          }if(res.result[14] == 1){
+          }if(res.data.result[14] == 1){
              $("input:checkbox[value='14']").attr('checked','true');
            }else{
              $("input:checkbox[value='14']").attr('checked',false);

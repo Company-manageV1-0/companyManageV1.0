@@ -158,10 +158,16 @@ export default {
         this.axios({
             method:"GET",
             url:'http://121.36.57.122:8080/feedBack/delete?id='+id,
+<<<<<<< HEAD
+          headers:{
+              'Authorization':sessionStorage.getItem("token")
+           },
+=======
             headers: {
           Authorization:
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJuYW1lIjoi5p2o6L6-MiIsImlkIjoiMmY4MzFiYjMtNjA0OS00NjA3LTljZjMtMzEwYzRiZDIyNjRhIiwiZXhwIjoxNjA4MjEyNzY1fQ.m0hcgB7jvDedcDRdeaYK1_XLv_m1aAKweNyHUKJRB9qn8k_wNL34_CTGp9vTtIVf",
         },
+>>>>>>> 6e7e331bde78e30cb3b0034612401d6c56ba1511
       }).then(
           
           this.$message.info('成功删除'),
@@ -188,10 +194,16 @@ export default {
       this.axios({
         method: "POST",
         url: this.getUrl(1, 5000),
+<<<<<<< HEAD
+        headers:{
+              'Authorization':sessionStorage.getItem("token")
+           },
+=======
         headers: {
           Authorization:
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJuYW1lIjoi5p2o6L6-MiIsImlkIjoiMmY4MzFiYjMtNjA0OS00NjA3LTljZjMtMzEwYzRiZDIyNjRhIiwiZXhwIjoxNjA4MjEyNzY1fQ.m0hcgB7jvDedcDRdeaYK1_XLv_m1aAKweNyHUKJRB9qn8k_wNL34_CTGp9vTtIVf",
         },
+>>>>>>> 6e7e331bde78e30cb3b0034612401d6c56ba1511
       }).then((res) => {
         //实现反馈长度超出限制时用...表示 和 修改日期表现形式
         this.testTableData = res.data.result;

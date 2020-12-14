@@ -210,10 +210,9 @@ export default {
       this.axios({
         method:"POST",
         url:"http://121.36.57.122:8080/feedBack/update",
-        headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzQwNDgzOH0.j3NFo27Z8lgzSpsXBJpnUJJDpygOqxx0FunaYFr-ynggha2ToWefa8DnDiFl-AJt"
-        },
+       headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
       }).then((res)=>{
         console.log(res);
       })
@@ -224,10 +223,9 @@ export default {
       this.axios({
         method: "GET",
         url: "http://121.36.57.122:8080/feedBack/getUserByid?feedBackId=" + feedBackId,
-        headers: {
-          Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzQwNDgzOH0.j3NFo27Z8lgzSpsXBJpnUJJDpygOqxx0FunaYFr-ynggha2ToWefa8DnDiFl-AJt"
-        },
+       headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
       }).then((res)=>{
         // this.engineer_options = res.data.result;
         var allResults = res.data.result;
@@ -247,12 +245,9 @@ export default {
       this.axios({
         method: "POST",
         url: this.getUrl(1, 5000),
-        headers: {
-          Authorization:
-            // "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzQwNDgzOH0.j3NFo27Z8lgzSpsXBJpnUJJDpygOqxx0FunaYFr-ynggha2ToWefa8DnDiFl-AJt"
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzU2MTUwMX0.wziYra0H-c0SAjnTWxgFb-pver4HFyjHJ3Nt0PBzQQx2m8KrcHbXnFscD8-Dq_QL",
-        
-        },
+      headers:{
+              Authorization: sessionStorage.getItem("token"),
+          },
       }).then((res) => {
         //超出限制用... 和 修改日期
         this.testTableData = res.data.result;

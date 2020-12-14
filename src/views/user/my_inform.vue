@@ -115,13 +115,13 @@ export default {
             method:'get',
         }).then(res=>{
             console.log(res)
-            console.log(res.result.username)
+            console.log(res.data.result.username)
 
-            this.form.nicheng = res.result.username;
+            this.form.nicheng = res.data.result.username;
            
-            this.form.email = res.result.email;
-            this.form.phonenum = res.result.phone; 
-            this.form.resource = res.result.sex;
+            this.form.email = res.data.result.email;
+            this.form.phonenum = res.data.result.phone; 
+            this.form.resource = res.data.result.sex;
 
             // 图片的上传功能暂时没有实现
             // this.pic_url = res.result.img;

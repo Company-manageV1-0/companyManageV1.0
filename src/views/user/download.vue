@@ -106,12 +106,12 @@ export default {
           console.log(res)
           //这里不想要数组
           // console.log(res.result[0].title)
-           this.title = res.result.title
-           this.time = res.result.time
-            this.editor = res.result.username
-           this.summery = res.result.remark
-           this.solution = res.result.solution
-           this.version_mesg = res.result.eddescribe 
+           this.title = res.data.result.title
+           this.time = res.data.result.time
+            this.editor = res.data.result.username
+           this.summery = res.data.result.remark
+           this.solution = res.data.result.solution
+           this.version_mesg = res.data.result.eddescribe 
       }).catch(err=>{
           console.log(err)
       })

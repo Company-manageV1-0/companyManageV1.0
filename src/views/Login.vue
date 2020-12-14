@@ -75,9 +75,7 @@ methods:{
 
         this.axios({
             url:'http://121.36.57.122:8080/user/loginByPassword',
-            // headers:{
-            //     'Authorization':'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzAwNzEwNn0.rzb2oMNG5wrtMr0CGArKZA-qzxqP0E5Xin7I1Oseinms1QzZmpKm7ppVoTTFbYdV'
-            // },
+            
             method:'post',
             params:{
                 email:this.email,

@@ -78,7 +78,7 @@ export default {
           },
         }).then(res=>{
            console.log(res);
-           this.list = res.result 
+           this.list = res.data.result 
            // console.log("list" + this.list);
            this.tableData = this.list
           //  console.log("re"+res.data.result)
@@ -101,7 +101,7 @@ export default {
              },
         }).then(res=>{
            console.log(res);
-           this.list = res.result 
+           this.list = res.data.result 
            // console.log("list" + this.list);
            this.tableData = this.list
           //  console.log("re"+res.data.result)
