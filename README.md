@@ -1,4 +1,4 @@
-# after_sale
+# companyManage app
 
 ## Project setup
 ```
