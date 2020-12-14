@@ -160,7 +160,7 @@ export default {
             url:'http://121.36.57.122:8080/feedBack/delete?id='+id,
             headers: {
           Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzU2MTUwMX0.wziYra0H-c0SAjnTWxgFb-pver4HFyjHJ3Nt0PBzQQx2m8KrcHbXnFscD8-Dq_QL",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJuYW1lIjoi5p2o6L6-MiIsImlkIjoiMmY4MzFiYjMtNjA0OS00NjA3LTljZjMtMzEwYzRiZDIyNjRhIiwiZXhwIjoxNjA4MjEyNzY1fQ.m0hcgB7jvDedcDRdeaYK1_XLv_m1aAKweNyHUKJRB9qn8k_wNL34_CTGp9vTtIVf",
         },
       }).then(
           
@@ -190,7 +190,7 @@ export default {
         url: this.getUrl(1, 5000),
         headers: {
           Authorization:
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZCI6IjJmODMxYmIzLTYwNDktNDYwNy05Y2YzLTMxMGM0YmQyMjY0YSIsImV4cCI6MTYwNzU2MTUwMX0.wziYra0H-c0SAjnTWxgFb-pver4HFyjHJ3Nt0PBzQQx2m8KrcHbXnFscD8-Dq_QL",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJuYW1lIjoi5p2o6L6-MiIsImlkIjoiMmY4MzFiYjMtNjA0OS00NjA3LTljZjMtMzEwYzRiZDIyNjRhIiwiZXhwIjoxNjA4MjEyNzY1fQ.m0hcgB7jvDedcDRdeaYK1_XLv_m1aAKweNyHUKJRB9qn8k_wNL34_CTGp9vTtIVf",
         },
       }).then((res) => {
         //实现反馈长度超出限制时用...表示 和 修改日期表现形式
