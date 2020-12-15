@@ -802,7 +802,7 @@ add_group_sure(){
   
         console.log(data)
         this.axios({
-          url:'http://121.36.57.122:8080/role/',
+          url:"http://121.36.57.122:8080/role/"+this.data,
           headers:{
               'Authorization':sessionStorage.getItem("token")
            },

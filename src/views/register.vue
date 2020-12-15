@@ -49,7 +49,7 @@ export default {
             password:'',
             code:'',
             key:'',
-
+            error:''
             
         }
     },
@@ -73,7 +73,7 @@ methods:{
 
     register(){
         this.axios({
-          url:'http://121.36.57.122:8080/user',
+          url:'http://121.36.57.122:8080/user/register',
           params:{
             email:this.email,
             password:this.password,
@@ -92,7 +92,9 @@ methods:{
                 // The request was made and the server responded with a status code
                 // that falls out of the range of 2xx
                 console.log(err.response.data.message);
-                this.error = err.response.data.message  
+
+                 this.error = err.response.data.message  
+                this.$message.error(this.error)
                 console.log(err.response.status);
                 console.log(err.response.headers);
               } else if (err.request) {
