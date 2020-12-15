@@ -274,7 +274,7 @@ export default {
 
 .left {
   background-color: #485363;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   /* z-index: -100; */
   height: 100%;
   width: 15%;
