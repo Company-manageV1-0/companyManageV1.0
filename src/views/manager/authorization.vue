@@ -338,10 +338,7 @@ import $ from  'jquery'
         string:[],
         list:[],
 
-         tableData4:[{
-           name:'admin',
-           userdescribe:'高级管理员，可以管理用户等'
-         }],
+         tableData4:[],
 
         dialogFormVisible:false,
         add_group:false,
@@ -352,7 +349,7 @@ import $ from  'jquery'
     // 获取后端所有的角色
      mounted(){
         this.axios({
-          url:'http://121.36.57.122:8080/role/getall',
+          url:'http://121.36.57.122:8080/role',
           headers:{
                  'Authorization':sessionStorage.getItem("token")
                 //  localStorage.getItem('token')
@@ -489,7 +486,7 @@ jishu(){
 add_group_sure(){
   if(this.ruleForm.name != '' && this.ruleForm.describe!='' && this.ruleForm.remark != ''){
      this.axios({
-          url:'http://121.36.57.122:8080/role/add',
+          url:'http://121.36.57.122:8080/role',
           headers:{
               'Authorization':sessionStorage.getItem("token")
            },
@@ -523,7 +520,7 @@ add_group_sure(){
 
           this.axios({
          
-           url:'http://121.36.57.122:8080/rolePremission/getAllPreByName',
+           url:'http://121.36.57.122:8080/role-premission',
            headers:{
               'Authorization':sessionStorage.getItem("token")
            },
@@ -775,7 +772,7 @@ add_group_sure(){
         }
 
         this.axios({
-          url:'http://121.36.57.122:8080/rolePremission/update',
+          url:'http://121.36.57.122:8080/role-premission',
           headers:{
              'Authorization':sessionStorage.getItem("token")
           },
@@ -805,10 +802,11 @@ add_group_sure(){
   
         console.log(data)
         this.axios({
-          url:'http://121.36.57.122:8080/role/delete',
+          url:'http://121.36.57.122:8080/role/',
           headers:{
               'Authorization':sessionStorage.getItem("token")
            },
+           method:'delete',
            params:{
              name:data
            }

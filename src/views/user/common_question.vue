@@ -67,8 +67,27 @@ export default {
 
 //根据搜索框搜索相关信息 全部信息就不输入
       search(){
-         this.axios({
-          url:'http://121.36.57.122:8080/edition/vague-select',
+        if(this.mohuinput == ''){
+            this.axios({
+          url:'http://121.36.57.122:8080/edition',
+          headers:{
+                 'Authorization':sessionStorage.getItem("token")
+                //  localStorage.getItem('token')
+             },
+        }).then(res=>{
+           console.log(res);
+           this.list = res.data.result 
+           // console.log("list" + this.list);
+           this.tableData = this.list
+          //  console.log("re"+res.data.result)
+          //  alert(+res.data.result[0].username)
+        }).catch(err=>{
+            console.log(err);
+            this.$router.push({ path:'/user_first/four'})
+        });
+        }else{
+            this.axios({
+          url:"http://121.36.57.122:8080/edition/vague-select/"+this.mohuinput,
           headers:{
                  'Authorization':sessionStorage.getItem("token")
                 //  localStorage.getItem('token')
@@ -87,6 +106,8 @@ export default {
             console.log(err);
             this.$message.error('err.response.message！');
         });
+        }
+       
       }
   },
 
@@ -94,7 +115,7 @@ export default {
 //进入页面显示全部文章
   mounted(){
      this.axios({
-          url:'http://121.36.57.122:8080/edition/getAll',
+          url:'http://121.36.57.122:8080/edition',
           headers:{
                  'Authorization':sessionStorage.getItem("token")
                 //  localStorage.getItem('token')

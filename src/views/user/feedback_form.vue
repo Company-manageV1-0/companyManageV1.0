@@ -1,6 +1,6 @@
 <template>
   <div class="center">
-    <Icon type="arrow-left" />
+    <el-Icon type="arrow-left" />
     <a-page-header
       class="header"
       title="用户中心 ｜ 我的反馈"
@@ -108,7 +108,7 @@ export default {
         headers: {
           Authorization: sessionStorage.getItem("token"),
         },
-        url: "http://121.36.57.122:8080/feedBack/add",
+        url: "http://121.36.57.122:8080/feedback",
         params: {
           briefDescribe: this.form.jianyao,
           declareDescribe: this.form.desc,

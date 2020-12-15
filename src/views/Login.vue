@@ -74,9 +74,8 @@ methods:{
         // alert(sessionStorage.getItem("token"))
 
         this.axios({
-            url:'http://121.36.57.122:8080/user/loginByPassword',
+            url:'http://121.36.57.122:8080/user/login-by-password',
             
-            method:'post',
             params:{
                 email:this.email,
                 password:this.pass,

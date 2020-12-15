@@ -134,6 +134,8 @@ export default {
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       },
+
+      //退出返回首页
     exit() {
       this.$router.push({ path: "/login" });
     },
@@ -144,9 +146,10 @@ export default {
   //   console.log(token);
   // },
 
+  //得到当前用户的角色，根据返回角色来判断导航栏的显示与隐藏
   mounted() {
    this.axios({
-     url:'http://121.36.57.122:8080/UserRole/getUserRole',
+     url:'http://121.36.57.122:8080//user-role',
     headers:{
               'Authorization':sessionStorage.getItem("token")
         },
@@ -156,9 +159,6 @@ export default {
         this.show = res.data.result[0];
      if(this.show == 'admin'){
        this.juese = this.show
-       this.usercenter = false
-       this.questionfeedback =false
-       this.jishucenter = false
      }if(this.show == 'user'){
         this.juese = this.show
        this.jishucenter = false

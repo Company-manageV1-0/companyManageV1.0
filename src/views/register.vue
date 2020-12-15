@@ -57,7 +57,7 @@ export default {
 methods:{
      getcode(){
          this.axios({
-          url:'http://121.36.57.122:8080/user/getCode',
+          url:"http://121.36.57.122:8080/user/send-email/"+this.email,
           params:{
             email:this.email
           }
@@ -73,7 +73,7 @@ methods:{
 
     register(){
         this.axios({
-          url:'http://121.36.57.122:8080/user/registerUser',
+          url:'http://121.36.57.122:8080/user',
           params:{
             email:this.email,
             password:this.password,

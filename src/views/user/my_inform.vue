@@ -1,7 +1,7 @@
 <template>
 <div class="center">
 
-    <Icon type="arrow-left" />
+    <el-Icon type="arrow-left" />
     <a-page-header
       class="header"
       title="用户中心 ｜ 我的资料"
@@ -83,12 +83,11 @@ export default {
         //修改信息
         onSubmit() {      
             this.axios({
-                url:'http://121.36.57.122:8080/user/update',
+                url:'http://121.36.57.122:8080/user',
                  headers: {
                  Authorization: sessionStorage.getItem("token"),
                     },
-                method:'post',
-
+                method:'put',
                 params:{
                     username:this.form.nicheng,
                     phone:this.form.phonenum,
@@ -108,7 +107,7 @@ export default {
     mounted(){
         
         this.axios({
-            url:'http://121.36.57.122:8080/user/getInfo',
+            url:'http://121.36.57.122:8080/user/own',
              headers: {
                 Authorization: sessionStorage.getItem("token"),
             },

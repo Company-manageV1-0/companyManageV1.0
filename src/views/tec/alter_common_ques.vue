@@ -119,7 +119,7 @@ export default {
         onSubmit() {  
             console.log(this.infoForm)
              this.axios({
-                 url:'http://121.36.57.122:8080/edition/add',
+                 url:'http://121.36.57.122:8080/edition',
                  headers:{
                     'Authorization':sessionStorage.getItem("token")
                     },

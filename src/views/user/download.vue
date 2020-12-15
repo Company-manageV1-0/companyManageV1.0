@@ -92,9 +92,9 @@ export default {
   },
 
   mounted(){
-       
+       console.log('title:'+store.state.data)
       this.axios({
-          url:'http://121.36.57.122:8080/edition/getByTitle',
+          url:"http://121.36.57.122:8080/edition/"+store.state.data,
           headers:{
               Authorization: sessionStorage.getItem("token"),
           },
