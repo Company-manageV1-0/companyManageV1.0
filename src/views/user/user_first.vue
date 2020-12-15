@@ -313,4 +313,10 @@ export default {
 .el-menu-item color{
   width: 160px;
 }
+
+
+.el-menu-item.is-active {
+    color: #409EFF;
+     background-color: #485363;
+}
 </style>
