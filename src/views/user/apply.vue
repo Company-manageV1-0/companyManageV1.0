@@ -6,10 +6,65 @@
       title="用户中心 ｜ 我要申请"
       @back=" () => { this.$router.push({ path: '../user_first/' }); } "
     />
+
+
+
+    <!-- TODO 下拉列表：申请的角色 -->
+
+
+
+    <!-- TODO 正反面照片 工作牌照片 -->
+
+
+
+
 </div>
-    
+
     
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      list:[],
+    };
+  },
+  methods:{
+    
+    
+    
+    /**TODO 页面加载进来获取角色数据*/
+    getUserRole(){
+
+    },
+
+
+    /**TODO 上传的图片操作 断点续传*/
+    updateImg(){
+
+    },
+
+
+
+    /**TODO 提交表单*/
+    updateForm(){
+        this.updateImg;
+    },
+
+
+
+  },
+      
+  mounted(){  
+
+    /**TODO 页面加载进来获取角色数据*/
+    this.getUserRole;
+
+  }
+};
+</script>
+
 
 <style scoped>
 .center{
@@ -19,9 +74,4 @@
     margin-left:5%;
 }
 
-span{
-    font-size: 12px;
-    font-family: sans-serif;
-    color: grey;
-}
 </style>

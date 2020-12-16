@@ -52,6 +52,14 @@
                   <a-descriptions-item label="问题简述" :span="3">
                     {{showTableData[scope.$index].briefDescribe}}
                   </a-descriptions-item>
+
+
+
+                  <!-- TODO 详细反馈判断字符串长度 -->
+                  <!-- TODO 添加解决方式 -->
+
+
+
                   <a-descriptions-item label="详细反馈" :span="3">
                     {{showTableData[scope.$index].declareDescribe}}
                   </a-descriptions-item>
@@ -68,6 +76,13 @@
               <a-row :gutter="16">
                 <a-col :span="24">
                   <a-form-item label="问题类型修改">
+
+
+
+                    <!-- TODO 问题类型选项 -->
+
+
+
                     <a-select
                       v-decorator="[
                         'questionType',
@@ -75,6 +90,7 @@
                           rules: [{ required: true, message: '请选择问题类型' }],
                         },
                       ]"
+                      
                       placeholder="请选择问题类型"
                       @change="handleQuestionTypeSelectChange"
                     >
@@ -86,6 +102,13 @@
                 </a-col>
                 
               </a-row>
+
+
+
+              <!-- TODO 技术人员选项 -->
+
+
+
               <a-row :gutter="16">
                 <a-col :span="24">
                   <a-form-item label="分配技术人员">
@@ -110,6 +133,12 @@
                 
               </a-row>
               
+
+
+              <!-- TODO 解决方式 -->
+
+
+
               <a-row :gutter="16">
                 <a-col :span="24">
                   <a-form-item label="解决方式">
@@ -127,6 +156,13 @@
                 </a-col>
               </a-row>
             </a-form>
+
+
+
+            <!-- TODO 提交的onpost操作 onclose的提示-->
+
+
+
             <div
               :style="{
                 position: 'absolute',
@@ -193,21 +229,53 @@ export default {
       console.log("feedbackid:" + feedBackId);
       this.getAllEngineer(feedBackId);
     },
+
+
+
+
+    /**TODO onclose关掉的提醒 */ 
+
+
+
+
     //mask.cancel close
     onClose() {
       this.maskVisible = false;
     },
+
+
+
+    /**TODO onpost的提交操作 */
+
+
+
+
     //submit ths updated form
     onPost(){
 
     },
-    //
+
+
+
+    /**TODO 处理技术人员选项 */
+
+
+
+
     handleEngineerIDSelectChange(value){
       console.log("ENGINEER" + value);//engineer selected option
       
     },
+
+
+
+    /**TODO 提交操作*/
+
+
+
+
     //post All Feedback data
-    postAllData(){
+    postAllFeedbackData(){
       this.axios({
         method:"POST",
         url:"http://121.36.57.122:8080/feedback",
@@ -218,6 +286,13 @@ export default {
         console.log(res);
       })
     },
+
+
+
+
+    /**TODO 获取所有技术人员*/
+
+
 
     //ger All engineer
     getAllEngineer(feedBackId){
@@ -240,6 +315,14 @@ export default {
         console.log(this.engineer_options);
       })
     },
+
+
+
+
+    /**TODO 分页根据窗口高度动态显示*/
+
+
+
 
     //get All Feedback Data
     getAllFeedbackData() {
@@ -267,6 +350,7 @@ export default {
         //按照日期排序
         this.arrSortByTime(this.testTableData);
         console.log(this.testTableData.length);
+        
         //计算page总数
         this.pagecount =
           this.testTableData.length % 8 === 0
@@ -274,8 +358,6 @@ export default {
             : (this.testTableData.length - (this.testTableData.length % 8)) /
                 8 +
               1;
-        // console.log(this.pagecount);
-
         this.getTable(1);
       });
     },
@@ -317,9 +399,11 @@ export default {
       return url;
     },
   },
+
+
+
   mounted() {
     this.getAllFeedbackData();
-    // console.log(this.testTableData)
   },
   data() {
     return {
@@ -329,18 +413,6 @@ export default {
       showTableData,
       //根据数据进行page页数分页
       pagecount,
-      // dialogTableVisible: false,
-      // dialogFormVisible: false,
-      // form: {
-      //   name: "",
-      //   region: "",
-      //   date1: "",
-      //   date2: "",
-      //   delivery: false,
-      //   type: [],
-      //   resource: "",
-      //   desc: "",
-      // },
       formLabelWidth: "120px",
       visible: true,
       maskVisible: false,
