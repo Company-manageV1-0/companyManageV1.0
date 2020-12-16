@@ -1,9 +1,11 @@
 <template>
 <div class="center">
-    <span>管理员中心 / 常见问题修改</span>
-    <br/>
-    <hr/>
-    <br/>
+    <Icon type="arrow-left" />
+    <a-page-header
+      class="header"
+      title="技术人员中心 ｜ 软件版本更新"
+      @back=" () => { this.$router.push({ path: '../user_first/' }); } "
+    />
      <div class="text"> 
         <el-row class="warp">
             <el-col :span="24" class="warp-main">
