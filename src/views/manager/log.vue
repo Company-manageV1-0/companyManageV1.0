@@ -22,13 +22,26 @@
 <!--            <el-button type="text" @click="handleCreate" :append-to-body="true">编辑</el-button>-->
 <!--        </el-table-column>-->
 <!--    </el-table>-->
-    <el-col span="7">
-        <el-input placeholder="请输入日志类型类型" v-model="typeInput" clearable></el-input>
-    </el-col>
-    <el-col span="4">
-        <el-button type="primary" @click="searchType">搜索</el-button>
-    </el-col>
+
 <!--    {{logList}}-->
+    <div class="block">
+        <span class="demonstration"></span>
+        <el-date-picker
+                v-model="value1"
+                type="datetimerange"
+                start-placeholder="开始日期"
+                end-placeholder="结束日期"
+                :default-time="['12:00:00']">
+        </el-date-picker>
+        <el-button type="primary" @click="dateSearch">搜索</el-button>
+    </div>
+<!--    <el-col span="7">-->
+<!--        <el-input placeholder="请输入日志类型类型" v-model="typeInput" clearable></el-input>-->
+<!--    </el-col>-->
+<!--    <el-col span="4">-->
+<!--        <el-button type="primary" @click="dateSearch">搜索</el-button>-->
+<!--    </el-col>-->
+    <p>*这是本月的日志统计</p>
     <el-table :data="logList" border stripe="" max-height="570">
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column label="ID" prop="operId"></el-table-column>
@@ -70,6 +83,7 @@
             return{
                 typeInput:'',
                 logList:[],
+                value1:'',
                 currentPage1:1,
                 currentPage2:5,
                 currentPage3:5,
@@ -82,18 +96,40 @@
             queryuser(){
                 this.axios({
                     method:"get",
-                    url:"http://121.36.57.122:8080/oper-log/get-all?pageIndex=1&size=5&startTime=2020-12-12 10:10:10&endTime=2020-12-14 10:10:10",
-                   headers:{
-              Authorization: sessionStorage.getItem("token"),
-          },
+                    url:"http://121.36.57.122:8080/operlog?pageIndex=1&size=5&startTime=2020-12-12 10:10:10&endTime=2020-12-14 10:10:10",
+                   headers: {
+          Authorization: sessionStorage.getItem("token"),
+        },
                 }).then(res =>{
                     console.log(res)
                     console.log(res.data)
-                    this.logList = res.data.result
+                    this.logList = res.data.result.records
                 })
             },
-            searchType(){
+            dateSearch(){
+                let time1 = new Date(+new Date(new Date(this.value1[0]).toJSON()) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                let time2 = new Date(+new Date(new Date(this.value1[1]).toJSON()) + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
+                // alert(time1);
+                // alert(time2);
 
+                // alert(time);
+                this.axios({
+                    method:"get",
+                    url:"http://121.36.57.122:8080/operlog",
+                    params:{
+                        startTime:time1,
+                        endTime:time2,
+                        pageIndex:1,
+                        size:10
+                    },
+                     headers: {
+          Authorization: sessionStorage.getItem("token"),
+        },
+                }).then(res => {
+                    console.log(res)
+                    console.log(res.data)
+                    this.logList = res.data.result.records
+                })
             },
             handleCurrentChange(){
                 this.page_index = this.page_index+1
@@ -105,9 +141,9 @@
                         pageIndex:this.page_index,
                         size:5
                     },
-                      headers:{
-              Authorization: sessionStorage.getItem("token"),
-          },
+                   headers: {
+            Authorization: sessionStorage.getItem("token"),
+                    },
                 }).then(res =>{
                     console.log(res)
                     console.log(res.data)
@@ -130,4 +166,7 @@ span{
     font-family: sans-serif;
     color: grey;
 }
+    /* .demonstration{
+
+    } */
 </style>

@@ -43,7 +43,7 @@
                     </el-form-item>
 
                      <el-form-item label="上传此次版本">
-                         <input type="file" value="" id="file" @change="uploadConfig">
+                         <input type="file" value="" id="file" @change="uploadConfig" ref="inputer">
                     </el-form-item>
 
 
@@ -66,6 +66,7 @@ import 'quill/dist/quill.bubble.css'
 export default {
     data() {
         return {
+            //      key_file:{},
             infoForm: {
                 a_title: '',
                 a_name:'',
@@ -98,24 +99,24 @@ export default {
               
     methods: {   
 
-        uploadConfig(){
-            //   let formData = new FormData();
-            //   formData.append('file', e.target.files[0]);
-            //  this.axios({
-            //      url:'http://121.36.57.122:8080/file/upload',
-            //      headers:{
-            //         'Authorization':sessionStorage.getItem("token")
-            //         },
-            //      method:'post',
-            //      params:{
-            //          file:formData
-            //      }
-            //  }).then(res=>{
-            //      console.log(res)
-            //  }).catch(err=>{
-            //       console.log(err)
-            //  })
-        },
+        // uploadConfig(){
+            
+        //      this.axios({
+        //          url:'http://121.36.57.122:8080/file/upload',
+        //          headers:{
+        //             'Authorization':sessionStorage.getItem("token")
+        //             },
+        //          method:'post',
+        //          params:{
+        //              file:formData
+        //          }
+        //      }).then(res=>{
+        //          console.log(res)
+        //      }).catch(err=>{
+        //           console.log(err)
+        //      })
+        // },
+
         onSubmit() {  
             console.log(this.infoForm)
              this.axios({

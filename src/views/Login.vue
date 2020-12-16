@@ -9,17 +9,23 @@
             <form>
                 <div class="one">
                     <span>邮箱</span>
-                    <input type="" v-model="email"/>
+                    <input type="text" style="outline:none" v-model="email">
                 </div>
+
+                <!-- <div class="one">
+                    <span>验证码</span>
+                    <input class="code" type="" v-model="code"/>
+                    <button @click="getcode" class="getcode1">获取验证码</button>
+                </div> -->
 
                 <div class="one">
                     <span>密码</span>
-                    <input type="password" v-model="pass"/>
+                    <input type="password" style="outline:none" v-model="pass">
                 </div>
 
 
-                <div class="one">
-                    <button @click="login" ><strong>Login</strong></button>
+                <div >
+                    <el-button @click="login1" style="outline:none" type="primary" size="medium" >Login</el-button>
                 </div>
 
                 <div class="one">
@@ -45,7 +51,8 @@ export default {
             // code:'',
             // key:'',
             pass:'',
-            userToken:''
+            // userToken:''
+            userToken:'',
         }
     },
 
@@ -64,36 +71,45 @@ methods:{
     //     })
     // },
 
-    login(){
+    login1(){
+        
+        // alert(sessionStorage.getItem("token"))
+
         this.axios({
             url:'http://121.36.57.122:8080/user/login-by-password',
+            
             params:{
                 email:this.email,
                 password:this.pass,
+
             }
-        }).then(res=>{             
+        }).then(res=>{    
+                     
             console.log(res);
             // console.log('data'+res.result[0])
             // console.log('token:'+res.data.result);
             // 获取后端token
             // this.userToken = res.data.result;
             // 储存到vuex
+            var userToken = '';
+            console.log(userToken);
             this.userToken = res.data.result;
             console.log("userToken:" + this.userToken);
             // localStorage.setItem('Authorization',this.userToken);
             //  this.$store.commit("Authorization", this.userToken);
 //根据store中set_token方法将token保存至localStorage/sessionStorage中,this.userToken,获取token的value值 
-            this.$store.commit('set_token',this.userToken); 
-            this.$router.push({ path:'/user_first/first'})
+            this.$store.commit('set_token',this.userToken);
+            this.$router.push({ path:'/user_first/first'}) 
+            
         }).catch(err=>{
             console.log(err);
 
             //失败后删除token,并跳转到登录界面
                 // localStorage.removeItem('token');
                 
-                this.$store.commit('del_token'); 
+                // this.$store.commit('del_token',this.userToken); 
                 this.$message.error('账号密码错误！');
-                this.$router.push({ path:'/Login'})
+                
                 
         });
     },
@@ -106,19 +122,26 @@ methods:{
 
 },
 
- mounted(){
-        if(localStorage.getItem('token') != null ){
-        console.log(true)
-            this.$router.push({ path:'/user_first/first'})
-        }
-    }
+//  mounted(){
+//         if(localStorage.getItem('token') != null ){
+//         console.log(true)
+//              this.$router.push({ path:'/user_first'})
+//         }
+//     }
 
 }
 </script>
 
 <style scoped>
+.el-button {
+    width:310px;
+    position: center;
+    margin-top: 30px;
+    margin-left: 40px;
+
+}
 .title button{
-    height: 40px;
+    height: 60px;
     background-color:#00BFFF;
     color: white;
     text-align: center;

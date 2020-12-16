@@ -13,8 +13,11 @@
                 <el-form ref="form" :model="form" label-width="35%">
 
                     <el-form-item label="头像">
+                        <div class="absolute">
                         <div class="user_pic" >
-                            <img src='' @click="changepic" class="img1"/>
+                            <img :src='picsrc' class="img1" />
+                        </div>
+                        <input type="file" class="file" @click="changepic(this)"/>
                         </div>
                     </el-form-item>
 
@@ -68,6 +71,7 @@ export default {
     data() {
         return {
             
+            picsrc:'',
             pic_url:'',
             img:'',
             form: {
@@ -97,7 +101,46 @@ export default {
             this.$message.success('提交成功!');
         },
 
-        changepic(){
+        //    changepic() {
+        //             this.axios({
+        //                 url:'http://121.36.57.122:8080/file/upload',
+        //                 method:'post'
+
+        //             }).then(res=>{
+
+        //             }).catch(err=>{
+
+        //             })
+                  
+        //         },
+
+        changepic(data){
+            this.fileBook = data.target.files[0];
+            this.fileName = data.target.files[0].name;
+            this.formdata = new FormData();
+            this.formdata.append('file',this.fileBook)
+            this.formdata.append('miniMchId',this.storeDetail.miniMchId)
+            this.formdata.append('miniPayKey',this.storeDetail.miniPayKey)
+            this.formdata.append('miniSecret',this.storeDetail.miniSecret)
+
+            // let res = await basicApi.updataStoreDetail(this.formdata);
+            
+              this.axios({
+                         url:'http://121.36.57.122:8080/file/upload',
+                         method:'post',
+                        headers:{
+                 'Authorization':sessionStorage.getItem("token")
+                //  localStorage.getItem('token')
+                     },
+                     params:{
+                         file:this.formdata
+                     }
+
+                    }).then(res=>{
+                        console.log(res)
+                    }).catch(err=>{
+                        console.log(err)
+                    })
 
         }
 
@@ -124,12 +167,12 @@ export default {
             // 图片的上传功能暂时没有实现
              this.pic_url = res.data.result.img;
             console.log(this.pic_url)
-            var img = document.getElementsByClassName('.img1');
-            console.log(img)
+            // var img = document.getElementsByClassName('.img1');
+            // console.log(img)
             // console.log(img);
-            img.src = this.pic_url;
+            this.picsrc = this.pic_url;
                 // img.src = '../../assets/img.jpg';
-             console.log(img.src)
+            //  console.log(img.src)
            
         }).catch(err=>{
             console.log(err)
@@ -195,5 +238,15 @@ span{
     height: 100%;
     width: 100%;
     border-radius: 50rem;
+}
+
+.file{
+    position: absolute;
+    margin-top: -100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50rem;
+    /* border: 1px solid red; */
+    opacity: 0;
 }
 </style>
