@@ -209,7 +209,7 @@ export default {
     postAllData(){
       this.axios({
         method:"POST",
-        url:"http://121.36.57.122:8080/feedBack/update",
+        url:"http://121.36.57.122:8080/feedback",
        headers:{
               Authorization: sessionStorage.getItem("token"),
           },
@@ -222,13 +222,13 @@ export default {
     getAllEngineer(feedBackId){
       this.axios({
         method: "GET",
-        url: "http://121.36.57.122:8080/feedBack/getUserByid?feedBackId=" + feedBackId,
+        url: "http://121.36.57.122:8080/feedback/" + feedBackId,
        headers:{
               Authorization: sessionStorage.getItem("token"),
           },
       }).then((res)=>{
         // this.engineer_options = res.data.result;
-        var allResults = res.data.result;
+        var allResults = res.data.result.records;
         console.log(allResults)
         allResults.forEach(allResult => {
           console.log(allResult);
@@ -243,14 +243,14 @@ export default {
     //get All Feedback Data
     getAllData() {
       this.axios({
-        method: "POST",
-        url: this.getUrl(1, 5000),
+        method: "GET",
+        url: this.getUrl(1, 1000),
       headers:{
               Authorization: sessionStorage.getItem("token"),
           },
       }).then((res) => {
         //超出限制用... 和 修改日期
-        this.testTableData = res.data.result;
+        this.testTableData = res.data.result.records;
         for (let TableData of this.testTableData) {
           TableData.briefDescribe = TableData.briefDescribe
             .toString()
@@ -307,7 +307,7 @@ export default {
     },
 
     getUrl(currentPage, size) {
-      let url = "http://121.36.57.122:8080/feedBack/getAll";
+      let url = "http://121.36.57.122:8080/feedback/get-all";
       url = url.concat(
         "?pageIndex=" + currentPage.toString() + "&size=" + size
       );

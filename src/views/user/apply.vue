@@ -1,8 +1,11 @@
 <template>
 <div class="center">
-    <span>用户中心 / 我的反馈</span>
-    <br/>
-    <hr/>
+    <Icon type="arrow-left" />
+    <a-page-header
+      class="header"
+      title="用户中心 ｜ 我要申请"
+      @back=" () => { this.$router.push({ path: '../user_first/' }); } "
+    />
 </div>
     
     
