@@ -167,6 +167,7 @@
 </template>
         
 <script>
+// import getAllFeedbackData from "../../api/my_worksheet/getAllFeedbackData"
 let showTableData = [
   {
     briefDescribe: "",
@@ -210,7 +211,7 @@ export default {
       this.axios({
         method:"POST",
         url:"http://121.36.57.122:8080/feedback",
-       headers:{
+        headers:{
               Authorization: sessionStorage.getItem("token"),
           },
       }).then((res)=>{
@@ -241,7 +242,7 @@ export default {
     },
 
     //get All Feedback Data
-    getAllData() {
+    getAllFeedbackData() {
       this.axios({
         method: "GET",
         url: this.getUrl(1, 1000),
@@ -317,7 +318,7 @@ export default {
     },
   },
   mounted() {
-    this.getAllData();
+    this.getAllFeedbackData();
     // console.log(this.testTableData)
   },
   data() {
