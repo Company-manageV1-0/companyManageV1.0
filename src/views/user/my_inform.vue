@@ -17,7 +17,7 @@
                         <div class="user_pic" >
                             <img :src='picsrc' class="img1" />
                         </div>
-                        <input type="file" class="file" @click="changepic(this)"/>
+                        <input type="file" class="file" @click="changepic"/>
                         </div>
                     </el-form-item>
 
@@ -114,35 +114,26 @@ export default {
                   
         //         },
 
-        changepic(data){
-            this.fileBook = data.target.files[0];
-            this.fileName = data.target.files[0].name;
-            this.formdata = new FormData();
-            this.formdata.append('file',this.fileBook)
-            this.formdata.append('miniMchId',this.storeDetail.miniMchId)
-            this.formdata.append('miniPayKey',this.storeDetail.miniPayKey)
-            this.formdata.append('miniSecret',this.storeDetail.miniSecret)
+        // changepic(){
+           
+        //       this.axios({
+        //                  url:'http://121.36.57.122:8080/file/upload',
+        //                  method:'post',
+        //                 headers:{
+        //          'Authorization':sessionStorage.getItem("token")
+        //         //  localStorage.getItem('token')
+        //              },
+        //              params:{
+        //                  file:this.formdata
+        //              }
 
-            // let res = await basicApi.updataStoreDetail(this.formdata);
-            
-              this.axios({
-                         url:'http://121.36.57.122:8080/file/upload',
-                         method:'post',
-                        headers:{
-                 'Authorization':sessionStorage.getItem("token")
-                //  localStorage.getItem('token')
-                     },
-                     params:{
-                         file:this.formdata
-                     }
+        //             }).then(res=>{
+        //                 console.log(res)
+        //             }).catch(err=>{
+        //                 console.log(err)
+        //             })
 
-                    }).then(res=>{
-                        console.log(res)
-                    }).catch(err=>{
-                        console.log(err)
-                    })
-
-        }
+        // }
 
     },
 

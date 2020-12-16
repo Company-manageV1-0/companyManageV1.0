@@ -6,9 +6,10 @@ import './plugins/element.js'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios,axios);
+import * as echarts from 'echarts'
 
-
-Vue.config.productionTip = false
+Vue.prototype.$echarts = echarts;
+// Vue.config.productionTip = false
 
 new Vue({
   router,

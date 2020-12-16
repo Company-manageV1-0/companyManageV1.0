@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 
 const Login = () => import('../views/Login.vue')
 const register = () => import('../views/register.vue')
+const first_first = () => import('../views/first_first.vue')
 
 const first = () => import('../views/user/first.vue')
 const user_first = () => import('../views/user/user_first.vue')
@@ -37,6 +38,10 @@ const routes = [
   {
     path: '/register',
     component: register
+  },
+  {
+    path: '/first_first',
+    component:first_first
   },
 
 

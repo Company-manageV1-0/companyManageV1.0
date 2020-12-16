@@ -7,6 +7,10 @@
 <script>
 
 export default {
+  name:'App',
+  mounted(){
+    // this.$router.push({ path:'/first_first' });
+  }
 }
 </script>
 

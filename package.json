@@ -11,6 +11,7 @@
     "ant-design-vue": "^1.7.2",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
+    "echarts": "^5.0.0",
     "element-ui": "^2.4.5",
     "jquery": "^3.5.1",
     "stylus-loader": "^4.3.1",
