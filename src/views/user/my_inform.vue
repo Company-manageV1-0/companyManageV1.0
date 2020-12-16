@@ -14,8 +14,7 @@
 
                     <el-form-item label="头像">
                         <div class="user_pic" >
-                            
-                            <img src='' height="100%" width="100%" @click="changepic" />
+                            <img src='' @click="changepic" class="img1"/>
                         </div>
                     </el-form-item>
 
@@ -123,14 +122,14 @@ export default {
             this.form.resource = res.data.result.sex;
 
             // 图片的上传功能暂时没有实现
-            // this.pic_url = res.result.img;
-
-            // var img = document.getElementsByClassName('.img1');
-            
+             this.pic_url = res.data.result.img;
+            console.log(this.pic_url)
+            var img = document.getElementsByClassName('.img1');
+            console.log(img)
             // console.log(img);
-            // img.src = 'this.pic_url';
+            img.src = this.pic_url;
                 // img.src = '../../assets/img.jpg';
-            // console.log(img.src)
+             console.log(img.src)
            
         }).catch(err=>{
             console.log(err)
@@ -169,13 +168,13 @@ span{
 }
 
 .user_pic{
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 100px;
     width: 100px;
     /* position: relative; */
     /* margin-top:-50px;
     margin-left:50px; */
-    border-radius: 50rem;
+    /* border-radius: 50rem; */
     /* background-image:url(../../assets/img.jpg); */
 }
 
@@ -190,5 +189,11 @@ span{
     font-size: 12px;
     font-family: sans-serif;
     color: grey;
+}
+
+.img1{
+    height: 100%;
+    width: 100%;
+    border-radius: 50rem;
 }
 </style>

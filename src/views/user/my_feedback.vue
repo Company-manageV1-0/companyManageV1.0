@@ -1,17 +1,12 @@
 <template>
   <div class="center">
     <!--面包屑导航区域-->
-    <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
+    <el-breadcrumb separator-class="el-icon-arrow-right">
         <el-breadcrumb-item :to="{ path: '/user_first' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>用户中心</el-breadcrumb-item>
         <el-breadcrumb-item>我的反馈</el-breadcrumb-item>
-    </el-breadcrumb> -->
-    <Icon type="arrow-left" />
-    <a-page-header
-      class="header"
-      title="用户中心 ｜ 我的资料"
-      @back=" () => { this.$router.push({ path: '../user_first/' }); } "
-    />
+    </el-breadcrumb>
+
     <el-card >
         <!--搜索与添加区域-->
         <el-row :gutter="20" >
@@ -30,11 +25,11 @@
             </el-col>
         </el-row>
     <el-table :data="showTableData" stripe style="width: 100%" border class="biaodan">
-      <el-table-column prop="questionType" label="反馈问题类型" width="110"></el-table-column>
-      <el-table-column prop="softwareName" label="软件名称" width="110"></el-table-column>
-      <el-table-column prop="briefDescribe" label="问题简述" width="200"></el-table-column>
-      <el-table-column prop="time" label="反馈时间" width="180"></el-table-column>
-      <el-table-column prop="isdeal" label="状态" width="150">
+      <el-table-column prop="questionType" label="反馈问题类型" ></el-table-column>
+      <el-table-column prop="softwareName" label="软件名称" ></el-table-column>
+      <el-table-column prop="briefDescribe" label="问题简述" ></el-table-column>
+      <el-table-column prop="time" label="反馈时间" width="180px"></el-table-column>
+      <el-table-column prop="isdeal" label="状态" width="150px">
         <template slot-scope="scope">
           <a-badge v-if="scope.row.isdeal === 1" status="error"  />
           <a-badge v-if="scope.row.isdeal === 2" status="warning"  />
@@ -44,8 +39,8 @@
           <font v-else-if="scope.row.isdeal === 3" color="green">已处理</font>
         </template>
       </el-table-column>
-      <el-table-column prop="id" label="问题ID" width="100"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="170">
+      <el-table-column prop="id" label="问题ID" ></el-table-column>
+      <el-table-column fixed="right" label="操作" >
         <template slot-scope="scope">
           <a-popover placement="left">
               <template slot="content" >
@@ -83,7 +78,7 @@
                 详情
               </el-button>
               
-              <el-button type="danger"  @click="removeById(scope.row.id)">删除
+              <el-button   @click="removeById(scope.row.id)">删除
                 </el-button>
                          
           </a-popover>
@@ -156,11 +151,12 @@ export default {
         // this.getAllData()
 
         this.axios({
-            method:"GET",
-            url:'http://121.36.57.122:8080/feedBack/delete?id='+id,
-          headers:{
-              'Authorization':sessionStorage.getItem("token")
-           },
+            method:"DELETE",
+            url:'http://121.36.57.122:8080/feedback/'+id,
+            headers: {
+          Authorization:
+            sessionStorage.getItem("token")
+        },
       }).then(
           
           this.$message.info('成功删除'),
@@ -185,14 +181,15 @@ export default {
     //获取数据
     getAllData() {
       this.axios({
-        method: "POST",
-        url: this.getUrl(1, 5000),
-        headers:{
-              'Authorization':sessionStorage.getItem("token")
-           },
+        method: "GET",
+        url: this.getUrl(1, 100),
+        headers: {
+          Authorization:
+           sessionStorage.getItem("token")
+        },
       }).then((res) => {
         //实现反馈长度超出限制时用...表示 和 修改日期表现形式
-        this.testTableData = res.data.result;
+        this.testTableData = res.data.result.records;
         for (let TableData of this.testTableData) {
           TableData.briefDescribe = TableData.briefDescribe
             .toString()
@@ -208,12 +205,12 @@ export default {
         //按照日期对反馈进行排序
         this.arrSortByTime(this.testTableData);
         console.log(this.testTableData.length);
-        //计算page总数，定义每页放4个反馈
+        //计算page总数，定义每页放8个反馈
         this.pagecount =
-          this.testTableData.length % 4 === 0
-            ? this.testTableData.length / 4
-            : (this.testTableData.length - (this.testTableData.length % 4)) /
-                4 +
+          this.testTableData.length % 6 === 0
+            ? this.testTableData.length / 6
+            : (this.testTableData.length - (this.testTableData.length % 6)) /
+                6 +
               1;
         console.log(this.pagecount);
     this.getTable(1);
@@ -238,7 +235,7 @@ export default {
       });
     },
     getTable(currentPage) {
-      this.pagesize = 4;
+      this.pagesize = 6;
       //通过当前页数和每页限制条数 从总数组上分割要显示的数组
       this.showTableData = this.testTableData.slice(
         (currentPage - 1) * this.pagesize,
@@ -249,7 +246,7 @@ export default {
     //获取数据参数的方法定义
     getUrl(currentPage, size) {
         //后端接口路径
-      let url = "http://121.36.57.122:8080/feedBack/getAll";
+      let url = "http://121.36.57.122:8080/feedback";
       url = url.concat(
         "?pageIndex=" + currentPage.toString() + "&size=" + size
       );
@@ -267,7 +264,7 @@ export default {
   data() {
     return {
       // maskStyle:{background-color: rgba(0,0,0,0.5)},
-      form: this.$form.createForm(this),
+      
       showTableData,
       //根据数据进行page页数分页
       pagecount,

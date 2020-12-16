@@ -135,8 +135,9 @@ export default {
         console.log(key, keyPath);
       },
 
-      //退出返回首页
+      //退出返回首页 删除token
     exit() {
+      this.$store.commit('del_token'); 
       this.$router.push({ path: "/login" });
     },
   },
@@ -256,10 +257,9 @@ export default {
   margin-top: -70px;
 }
 .logo {
-  width: 250px;
-  line-height: 70px;
-  padding-left: 50px;
-
+  width:250px;
+  line-height:70px;
+  padding-left:50px;
   /* float: left; */
 }
 
@@ -274,7 +274,7 @@ export default {
 
 .left {
   background-color: #485363;
-  /* border: 1px solid black; */
+  /* border: 1px solid red; */
   /* z-index: -100; */
   height: 100%;
   width: 15%;
@@ -288,10 +288,12 @@ export default {
   background-color: #f0f0f0;
 }
 .el-menu-item {
-  width:180px;
+   /* border:1px solid red; */
+  width:90%;
 }
 .el-submenu{
-  width:180px;
+  /* border:1px solid red; */
+  width:90%;
 }
 .el-menu-vertical-demo{
   margin-left:5%;
@@ -310,10 +312,10 @@ export default {
    background-color:#ecf5ff;
 }
 
-.el-menu-item color{
+/* .el-menu-item color{
+  border:1px solid red;
   width: 160px;
-}
-
+} */
 
 .el-menu-item.is-active {
     color: #409EFF;
