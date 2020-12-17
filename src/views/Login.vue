@@ -9,7 +9,7 @@
             <form>
                 <div class="one">
                     <span>邮箱</span>
-                    <input type="" v-model="email"/>
+                    <input type="text" style="outline:none" v-model="email">
                 </div>
 
                 <!-- <div class="one">
@@ -17,14 +17,15 @@
                     <input class="code" type="" v-model="code"/>
                     <button @click="getcode" class="getcode1">获取验证码</button>
                 </div> -->
+
                 <div class="one">
                     <span>密码</span>
-                    <input type="password" v-model="pass"/>
+                    <input type="password" style="outline:none" v-model="pass">
                 </div>
 
 
-                <div class="one">
-                    <button @click="login1" ><strong>Login</strong></button>
+                <div >
+                    <el-button @click="login1" style="outline:none" type="primary" size="medium" >Login</el-button>
                 </div>
 
                 <div class="one">
@@ -51,6 +52,7 @@ export default {
             // key:'',
             pass:'',
             // userToken:''
+            userToken:'',
         }
     },
 
@@ -81,7 +83,8 @@ methods:{
                 password:this.pass,
 
             }
-        }).then(res=>{             
+        }).then(res=>{    
+                     
             console.log(res);
             // console.log('data'+res.result[0])
             // console.log('token:'+res.data.result);
@@ -95,8 +98,9 @@ methods:{
             // localStorage.setItem('Authorization',this.userToken);
             //  this.$store.commit("Authorization", this.userToken);
 //根据store中set_token方法将token保存至localStorage/sessionStorage中,this.userToken,获取token的value值 
-             this.$store.commit('set_token',this.userToken); 
-            this.$router.push({ path:'/user_first/first'})
+            this.$store.commit('set_token',this.userToken);
+            this.$router.push({ path:'/user_first/first'}) 
+            
         }).catch(err=>{
             console.log(err);
 
@@ -105,7 +109,7 @@ methods:{
                 
                 // this.$store.commit('del_token',this.userToken); 
                 this.$message.error('账号密码错误！');
-                this.$router.push({ path:'/Login'})
+                
                 
         });
     },
@@ -129,8 +133,15 @@ methods:{
 </script>
 
 <style scoped>
+.el-button {
+    width:310px;
+    position: center;
+    margin-top: 30px;
+    margin-left: 40px;
+
+}
 .title button{
-    height: 40px;
+    height: 60px;
     background-color:#00BFFF;
     color: white;
     text-align: center;

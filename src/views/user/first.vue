@@ -224,6 +224,9 @@ export default {
     },
 
    mounted(){
+       if(sessionStorage.getItem('token') == null){
+            this.$router.push({ path:'/'}) 
+       }
        //反馈饼状图
         let myChart1 = echarts.init(document.getElementById('circle1'), 'light')	// 初始化echarts, theme为light
         myChart1.setOption(this.echartsOption)	// echarts设置选项

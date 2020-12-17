@@ -150,6 +150,9 @@ export default {
 
   //得到当前用户的角色，根据返回角色来判断导航栏的显示与隐藏
   mounted() {
+     if(sessionStorage.getItem('token') == null){
+            this.$router.push({ path:'/'}) 
+       }
    this.axios({
      url:'http://121.36.57.122:8080//user-role',
     headers:{

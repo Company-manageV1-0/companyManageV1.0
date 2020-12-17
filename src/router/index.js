@@ -33,6 +33,13 @@ Vue.use(VueRouter, Vuex)
 const routes = [
 
   {
+    path: '/',
+    name:first_first,
+    component:first_first
+  },
+
+
+  {
     path: '/login',
     component: Login
   },
@@ -40,11 +47,7 @@ const routes = [
     path: '/register',
     component: register
   },
-  {
-    path: '/first_first',
-    component:first_first
-  },
-
+ 
 
   {
     path: '/user_first',
