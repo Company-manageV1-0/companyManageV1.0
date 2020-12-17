@@ -1,6 +1,5 @@
 <template>
   <div class="center">
-    <Icon type="arrow-left" />
     <a-page-header
       class="header"
       title="管理员中心 ｜ 我的工单"
@@ -27,7 +26,7 @@
         <template slot-scope="scope">
           <a-popover placement="left">
               <template slot="content">
-                <a-descriptions  title="用户反馈详情" size="small" bordered={true}>
+                <a-descriptions  title="用户反馈详情" size="small" bordered>
                   <a-descriptions-item label="反馈问题类型" :span="1">
                     {{showTableData[scope.$index].questionType}}
                   </a-descriptions-item>
@@ -74,7 +73,7 @@
                 详情
               </a-button>
           </a-popover>
-          <a-button type="primary" style="height: 30px;line-width: 50px;line-height: 30px;display: inline;margin-left: 10px;" @click="showDrawer(showTableData[scope.$index].id)"> 处理 </a-button>
+          <a-button type="primary" style="height: 30px;line-width: 50px;line-height: 30px;display: inline;margin-left: 10px;" @click="showDrawer(showTableData[scope.$index].id, (showTableData[scope.$index].solution?showTableData[scope.$index].solution:'无'))"> 处理 </a-button>
           <a-drawer title="用户反馈处理" :width="410" :visible="maskVisible" :mask="true" :maskStyle="{'opacity':'0.1','background':'rgba(0,0,0,0.25)','animation':'none'}"
             :maskClosable="true" :body-style="{ paddingBottom: '80px' }" @close="onClose" >
             <a-form :form="form" layout="vertical" hide-required-mark>
@@ -89,18 +88,21 @@
 
 
                     <a-select
+                      option.initialValue="皇室战争"
+                      :value='questionTypeSelVal'
                       v-decorator="[
                         'questionType',
                         {
                           rules: [{ required: true, message: '请选择问题类型' }],
                         },
                       ]"
-                      
+                      showSearch
                       placeholder="请选择问题类型"
+
                       @change="handleQuestionTypeSelectChange"
                     >
-                      <a-select-option v-for="engineer in engineer_options" :key="engineer.key">
-                        
+                      <a-select-option v-for="type in questionType_options" :key=type.key>
+                        {{type.value}}
                       </a-select-option>
                     </a-select>
                   </a-form-item>
@@ -118,7 +120,8 @@
                 <a-col :span="24">
                   <a-form-item label="分配技术人员">
                     <a-select
-                      default-value="杨龙"
+                      option.initialValue="杨龙"
+                      :value='engineerSelVal'
                       v-decorator="[
                         'owner',
                         {
@@ -148,15 +151,20 @@
                 <a-col :span="24">
                   <a-form-item label="解决方式">
                     <a-textarea
+                      :value="solutionTextVal"
                       v-decorator="[
                         'description',
                         {
                           rules: [{ required: true, message: 'Please enter url description' }],
                         },
                       ]"
-                      :rows="4"
+                      :auto-size="{ minRows: 3, maxRows: 9 }"
                       placeholder="请输入该反馈信息的解决方式"
-                    />
+                      @change="handleSolutiontextChange">
+                    {{solutionText}}
+                    </a-textarea>
+                    
+                    
                   </a-form-item>
                 </a-col>
               </a-row>
@@ -211,28 +219,33 @@
 // import getAllFeedbackData from "../../api/my_worksheet/getAllFeedbackData"
 let showTableData = [
   {
-    briefDescribe: "",
-    dealUserId: "",
-    declareDescribe: "",
-    id: "",
-    isdeal: "",
-    questionType: "",
-    softwareName: "",
-    solution: "",
-    time: "",
-    uploadFile: "",
-    userId: "",
+    briefDescribe: "none",
+    dealUserId: "none",
+    declareDescribe: "none",
+    id: "none",
+    isdeal: "none",
+    questionType: "none",
+    softwareName: "none",
+    solution: "none",
+    time: "none",
+    uploadFile: "none",
+    userId: "none",
   },
 ];
 let pagecount = Number;
 export default {
+  props:{
+    Value:Object,//v-model
+  },
   methods: {
     //mask.show 
     //get engineerID
-    showDrawer(feedBackId) {
+    showDrawer(feedBackId, solution) {
       this.maskVisible = true;
       console.log("feedbackid:" + feedBackId);
       this.getAllEngineer(feedBackId);
+      this.getAllQuestionType();
+      this.solutionText = solution;
     },
 
 
@@ -245,7 +258,14 @@ export default {
 
     //mask.cancel close
     onClose() {
+      console.log(this.engineer_options, this.questionType_options)
       this.maskVisible = false;
+      this.engineer_options = [];
+      this.questionType_options = [];
+      this.solutionText = '';
+      console.log(this.solutionText)
+
+      // this.questionTypeSelVal = null;
     },
 
 
@@ -262,15 +282,29 @@ export default {
 
 
 
-    /**TODO 处理技术人员选项 */
-
-
-
-
-    handleEngineerIDSelectChange(value){
-      console.log("ENGINEER" + value);//engineer selected option
+    /**TODO 处理问题类型选项 */
+    handleQuestionTypeSelectChange(value, option){
+      console.log("handleQuestionTypeSelectChange:", value);
+      this.questionTypeSelVal = option;
+      this.$emit('handleQuestionTypeSelectChange',option);
       
     },
+
+
+    /**TODO 处理技术人员选项 */
+    handleEngineerIDSelectChange(value, option){
+      console.log("handleEngineerIDSelectChange:", value);
+      this.engineerSelVal = option;
+      this.$emit('handleEngineerIDSelectChange',option);
+    },
+
+    handleSolutiontextChange(value){
+      this.solutionTextVal = value;
+      // console.log(this.solutionText)
+      this.$emit('handleSolutiontextChange',value);
+      
+    },
+
 
 
 
@@ -292,13 +326,36 @@ export default {
       })
     },
 
+    
+    
+    
+    /**TODO 获取所有问题类型*/
+    getAllQuestionType(){
+      this.axios({
+        method: "GET",
+        url: "http://121.36.57.122:8080/question/",
+        headers:{
+          Authorization: sessionStorage.getItem("token"),
+        },
+      }).then((res)=>{
+          console.log(res);
+          for(let i = 0; i < res.data.result.length; ++i){
+            let typeArr = res.data.result[i]
+            console.log();
+            this.questionType_options.push({
+              value:typeArr.type,
+              key:i
+            })
+          }
+        }
+      )
+    },
+
+
 
 
 
     /**TODO 获取所有技术人员*/
-
-
-
     //ger All engineer
     getAllEngineer(feedBackId){
       this.axios({
@@ -308,22 +365,19 @@ export default {
               Authorization: sessionStorage.getItem("token"),
           },
       }).then((res)=>{
-        // this.engineer_options = res.data.result;
-        var allResults = res.data.result.records;
-        console.log(allResults)
-        allResults.forEach(allResult => {
-          console.log(allResult);
-          this.engineer_options.push({
-            value:allResult.username,
-          })
-        });
-        console.log(this.engineer_options);
+        console.log(res);
+          for(let i = 0; i < res.data.result.length; ++i){
+            let allResult = res.data.result[i]
+            console.log();
+            this.engineer_options.push({
+              value:allResult.username,
+              key:i
+            })
+          }
       })
     },
 
-
-
-
+    
     /**TODO 分页根据窗口高度动态显示*/
 
 
@@ -346,7 +400,7 @@ export default {
             .substr(0, [11])
             .concat("...");
           TableData.time = TableData.time.replace(/T/g, "-");
-          TableData.questionType = "    ".concat(TableData.questionType);
+          // TableData.questionType = "    ".concat(TableData.questionType);
           // for(let i = 0;i<TableData.declareDescribe.length/20;i++){
               // TableData.declareDescribe.substr(i,[(i+1)*20]).concat("<br />")
           // }
@@ -413,7 +467,12 @@ export default {
   data() {
     return {
       //技术人员选项
+      engineerSelVal:{},
       engineer_options: [],
+      questionType_options: [],
+      questionTypeSelVal:{},//监听
+      solutionText:{},
+      solutionTextVal:[],
       form: this.$form.createForm(this),
       showTableData,
       //根据数据进行page页数分页
@@ -424,6 +483,18 @@ export default {
       
     };
   },
+  watch: {
+    // /**
+    //  * 监听传来的值
+    //  */
+    // Value(val){
+    //   if(val.key == '' || val.key == undefined || val.key == null){
+    //     return;
+    //   }
+    //   this.questionTypeSelVal = val;
+    // }
+  }
+
 };
 </script>
 <style scoped>
