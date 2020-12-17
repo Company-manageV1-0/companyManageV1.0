@@ -93,7 +93,7 @@ export default {
                     img:this.picsrc
                 }
             })
-            this.$message.success('提交成功!');
+            this.$message.success('修改信息成功!');
         },
 
          changepic(e){
@@ -115,7 +115,6 @@ export default {
           })
     
          },
-
     },
 
     mounted(){

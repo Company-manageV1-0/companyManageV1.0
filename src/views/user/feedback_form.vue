@@ -46,10 +46,10 @@
             </el-button>
             <input
               type="file"
-              @click="onSubmit"
+              @change="onSubmit"
               class=""
+              name="file"
               id="notshow"
-              ref="inputer"
             />
             附件大小不超过3M
           </el-form-item>
@@ -74,7 +74,7 @@
             <el-button type="primary" @click="Submit" class="but"
               >提交</el-button
             >
-            <el-button class="but">取消</el-button>
+            <el-button class="but" @click="cancle">取消</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -87,6 +87,7 @@ export default {
   name: "feedback_form",
   data() {
     return {
+      
       form: {
         ruanjian: "",
         type: "",
@@ -94,13 +95,25 @@ export default {
         desc: "",
         phonenum: "",
         email: "",
+        file_url:'',
       },
       // 得到从后端传来的地址
       file_url:''
     };
   },
   methods: {
+    cancle(){
+        this.form.jianyao = '',
+        this.form.desc = '',
+        this.form.type = '',
+        this.form.ruanjian = ''
+        this.form.phonenum = ''
+        this.form.email = ''
+        this.file_url = ''
+    },
+
     Submit() {
+      console.log('上传'+this.file_url)
       // alert(sessionStorage.getItem("token"));
       // console.log(this.form)
       this.axios({
@@ -116,49 +129,45 @@ export default {
           softwareName: this.form.ruanjian,
           phone: this.form.phonenum,
           email: this.form.email,
+          uploadFile:this.file_url,
+          
         },
       })
         .then((res) => {
           console.log(res);
           this.$message.success("提交成功");
+          this.form.jianyao = '',
+          this.form.desc = '',
+          this.form.type = '',
+          this.form.ruanjian = ''
+          this.form.phonenum = ''
+          this.form.email = ''
+          this.file_url = ''
         })
         .catch((err) => {
           console.log(err);
           this.$message.error("提交失败");
         });
     },
-    onSubmit() {
-      // let that = this;
-      let inputDOM = this.$refs.inputer;
-      // let oldLen = this.filLen;
-      this.file = inputDOM.files[0];
-      // let len = this.file.length;
-      // this.key_file = this.file;
 
-      var formData = new FormData(); //先var 一个formData出来；，接着把所有需要传递的参数都append里
-      formData.append("file", this.file);
-      // formData.append("key_file", this.ssl_key_file);
-      // formData.append("name", that.param.name);
-      //然后formData传递
-
-      this
-        .axios({
-          url: "http://121.36.57.122:8080/file/upload",
-          headers: {
-            Authorization: sessionStorage.getItem("token"),
-          },
-          method: "post",
-          file: formData,
-        })
-        .then((res) => {
-          console.log(res);
-          this.file_url = res.data.result;
-          this.$message.success("上传文件成功");
-        })
-        .catch((error) => {
-          console.log(error);
-          this.$message.error("上传文件失败");
-        });
+    onSubmit(e) {
+          let file = e.target.files[0];
+        let param = new FormData(); //创建form对象
+        param.append('file',file);//通过append向form对象添加数据
+        console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        let config = {
+          headers:{'Content-Type':'multipart/form-data',
+                    'Authorization':sessionStorage.getItem("token")
+          }
+        }; //添加请求头
+        this.$http.post('http://121.36.57.122:8080/file/upload',param,config)
+          .then(response=>{
+            console.log(response.data);
+            console.log(response.data.result)
+            this.file_url = response.data.result;
+            this.$message.success('上传文件成功！');
+            // console.log('filr'+this.file_url)
+          })
     },
   },
 };

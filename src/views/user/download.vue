@@ -44,16 +44,14 @@
             <el-table-column fixed="right" label="下载地址" width="">
               <template scope="">
                 <el-button
-                  @click="upload"
                   type="text"
                   size="small"
                 >
-                  下载
+                 <a :href=" downloadurl"> 下载 </a>
                 </el-button>
               </template>
             </el-table-column>
           </el-table>
-
           <!-- windows64/32: <p class="upload" @click="upload">下载</p> -->
         </div>
       </div>
@@ -75,20 +73,19 @@ export default {
             system:'window64/windows32'
 
         },],
+      downloadurl:'',
       title:'',
       summery:'',
       time:'',
-    editor:'',
+      editor:'',
       version_mesg:'',
-    
       solution:''
     };
   },
 
   methods: {
-    upload() {
-      //下载地址
-    },
+
+
   },
 
   mounted(){
@@ -100,7 +97,6 @@ export default {
           },
           params:{
               title:store.state.data
-            
           }
       }).then(res=>{
           console.log(res)
@@ -112,6 +108,7 @@ export default {
            this.summery = res.data.result.remark
            this.solution = res.data.result.solution
            this.version_mesg = res.data.result.eddescribe 
+           this.downloadurl = res.data.result.fileLink
       }).catch(err=>{
           console.log(err)
       })
