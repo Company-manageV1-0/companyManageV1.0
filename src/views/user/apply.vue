@@ -8,15 +8,24 @@
     />
 
 
+    <div class="container">
+        <div class="role">选择申请的角色
+            <!-- TODO 下拉列表：申请的角色 -->
+            <el-form-item label="性别">
+            <el-radio-group :value='userRole'>
+              <el-radio label="男"></el-radio>
+              <el-radio label="女"></el-radio>
+              <el-radio label="其它"></el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </div>
 
-    <!-- TODO 下拉列表：申请的角色 -->
+        <!-- TODO 正反面照片 工作牌照片 -->
 
 
 
-    <!-- TODO 正反面照片 工作牌照片 -->
-
-
-
+        <!-- TODO 提交的button -->
+    </div>
 
 </div>
 
@@ -27,16 +36,22 @@
 export default {
   data() {
     return {
-      list:[],
+      //用户角色列表
+      userRole:['user','programmer','admin'],
     };
   },
   methods:{
     
-    
+    handleButtonClick(e) {
+      console.log('click left button', e);
+    },
+    handleMenuClick(e) {
+      console.log('click', e);
+    },
     
     /**TODO 页面加载进来获取角色数据*/
     getUserRole(){
-
+        return this.userRole;
     },
 
 
@@ -72,6 +87,18 @@ export default {
     /* border: 1px solid black; */
     width: 90%;
     margin-left:5%;
+}
+.container{
+    width: 80%;
+    padding: 5%;
+    background: #fff;
+    border-radius: 5px;
+    margin-left: 10%;
+    margin-top: 2%;
+    height: 80%;
+}
+.role{
+    margin-left: 40%;
 }
 
 </style>

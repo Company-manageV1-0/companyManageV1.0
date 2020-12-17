@@ -215,12 +215,12 @@ export default {
         //按照日期对反馈进行排序
         this.arrSortByTime(this.testTableData);
         console.log(this.testTableData.length);
-        //计算page总数，定义每页放8个反馈
+        //计算page总数，定义每页放4个反馈
         this.pagecount =
-          this.testTableData.length % 6 === 0
-            ? this.testTableData.length / 6
-            : (this.testTableData.length - (this.testTableData.length % 6)) /
-                6 +
+          this.testTableData.length % 4 === 0
+            ? this.testTableData.length / 4
+            : (this.testTableData.length - (this.testTableData.length % 4)) /
+                4 +
               1;
         console.log(this.pagecount);
     this.getTable(1);
@@ -245,7 +245,7 @@ export default {
       });
     },
     getTable(currentPage) {
-      this.pagesize = 6;
+      this.pagesize = 4;
       //通过当前页数和每页限制条数 从总数组上分割要显示的数组
       this.showTableData = this.testTableData.slice(
         (currentPage - 1) * this.pagesize,

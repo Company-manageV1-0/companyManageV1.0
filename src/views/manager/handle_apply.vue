@@ -7,6 +7,8 @@
       @back=" () => { this.$router.push({ path: '../user_first/' }); } "
     />
     <!-- TODO 表格 列：username roleId auditStatus （详情button）（处理button） -->
+    
+    
     <!-- TODO 详情button弹出框 username roleId auditStatus sex （IMG：staffImg idCardFrontImg idCardBackImg） -->
     <!-- TODO 处理button下拉列表 auditStatus 对应 1 2 3 （弹出确认框）-->
     <!-- TODO 确认框 绑定patchApplyData进行提交 -->
