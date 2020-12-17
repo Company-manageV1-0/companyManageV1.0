@@ -156,9 +156,9 @@ methods:{
     .code{
      height: 30px;
       width: 100px;
-      background-color: transparent;
+      background-color: #dbbbbb;
       border-color:white ;
-      color: white;
+      /* color: white; */
       margin-left: 15px;
     }
     a{
@@ -186,7 +186,7 @@ methods:{
     input{
       height: 30px;
       width: 250px;
-      background-color: transparent;
+      background-color: white;
       border-color:white ;
       color: black;
       margin-left:30px;
@@ -202,12 +202,12 @@ methods:{
     .login{
         height:300px;
         width: 400px;
-        border:1px solid white;
+        /* border:1px solid white; */
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        /* background-color: lightgray; */
+        /* background-color: #dbbbbb; */
       
     }
 

@@ -1,8 +1,11 @@
 <template>
     <div class="center">
-        <span>管理员中心 / 管理用户</span>
-        <br/>
-        <hr/>
+        <Icon type="arrow-left" />
+        <a-page-header
+            class="header"
+            title="管理员中心 ｜ 管理用户"
+            @back=" () => { this.$router.push({ path: '../user_first/' }); } "
+        />
 
         <!-- 在这里写东西 -->
         <div class="search_text">
