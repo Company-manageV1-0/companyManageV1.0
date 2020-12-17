@@ -37,12 +37,12 @@
                     </el-form-item>
                     
 
-                     <el-form-item label="常见问题解答">
+                     <!-- <el-form-item label="常见问题解答">
                         <div class="edit_containertwo">
                             <quill-editor v-model="infoForm.solution">
                             </quill-editor>
                         </div>
-                    </el-form-item>
+                    </el-form-item> -->
 
                      <el-form-item label="上传此次版本">
                         <el-button class="button_style">点击上传文件</el-button>
@@ -78,7 +78,6 @@ export default {
                 a_version:'',
                 a_content:'',
                 a_zhaiyao:'',
-                solution:'',
                 // editorOption: {}
             },
             //表单验证
@@ -108,7 +107,7 @@ export default {
                 this.infoForm.a_content = ''
                 this.infoForm.a_zhaiyao = ''
                 this.infoForm.a_name = ''
-                this.infoForm.solution = ''
+                
                 this.infoForm.title = ''
                 this.infoForm.a_version = ''
                 this.file_url = ''
@@ -147,7 +146,7 @@ export default {
                     eddescribe:this.infoForm.a_content,
                     remark:this.infoForm.a_zhaiyao,
                     softwareId:this.infoForm.a_name,
-                    solution:this.infoForm.solution,
+                   
                     title:this.infoForm.a_title,
                     versionNumber:this.infoForm.a_version,
                     fileLink:this.file_url
@@ -159,7 +158,7 @@ export default {
                    this.infoForm.a_content = ''
                    this.infoForm.a_zhaiyao = ''
                    this.infoForm.a_name = ''
-                   this.infoForm.solution = ''
+                  
                    this.infoForm.title = ''
                    this.infoForm.a_version = ''
                    this.file_url = ''

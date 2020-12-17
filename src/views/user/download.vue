@@ -18,23 +18,23 @@
     <!-- 解析后端传来的富文本问题 -->
     <div class="content">
       <div class="text">
-        <span>一、此版本信息</span>
+        <span></span>
         <div class="content_text_content">
           <!-- {{ version_mesg }} -->
           <p v-html="version_mesg">{{version_mesg}}</p>
           <!-- <pre>{{version_mesg}}</pre> -->
         </div>
       </div>
-
+<!-- 
       <div class="solution">
         <span>二、常见问题解答区</span>
         <div class="content_solution">
            <p v-html="solution">{{solution}}</p>
         </div>
-      </div>
+      </div> -->
 
       <div class="version">
-        <span>三、下载地址</span>
+        <span>下载地址:</span>
         <div class="content_version">
             <!-- 版本下载地址按下按钮请求后台的版本信息 -->
           <el-table :data="tableData4"  style="width:100%">
@@ -79,7 +79,7 @@ export default {
       time:'',
       editor:'',
       version_mesg:'',
-      solution:''
+      // solution:''
     };
   },
 
@@ -106,7 +106,7 @@ export default {
            this.time = res.data.result.time
             this.editor = res.data.result.username
            this.summery = res.data.result.remark
-           this.solution = res.data.result.solution
+          //  this.solution = res.data.result.solution
            this.version_mesg = res.data.result.eddescribe 
            this.downloadurl = res.data.result.fileLink
       }).catch(err=>{
@@ -153,13 +153,13 @@ export default {
 
 
 
-.content_solution {
-  /* height: 80%; */
-  /* border: 1px solid green; */
+/* .content_solution {
+  height: 80%;
+  border: 1px solid green;
 
   width: 90%;
   margin-left: 5%;
-}
+} */
 
 .title {
   /* border:1px solid black; */
