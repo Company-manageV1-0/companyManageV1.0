@@ -12,9 +12,14 @@
           <br />
           <el-form-item label="选择软件">
             <el-select v-model="form.ruanjian" placeholder="请选择" class="op">
-              <el-option key="bg" label="办公软件" value="办公软件"></el-option>
-              <el-option key="yx" label="游戏软件" value="游戏软件"></el-option>
-              <el-option key="kf" label="开发软件" value="开发软件"></el-option>
+      
+              <el-option key="wz" label="王者荣耀" value="王者荣耀"></el-option>
+              <el-option key="kf" label="原神" value="原神"></el-option>
+               <el-option key="yx" label="英雄联盟" value="英雄联盟"></el-option>
+                <el-option key="hs" label="皇室战争" value="皇室战争"></el-option>
+                 <el-option key="xy" label="校园一卡通" value="校园一卡通"></el-option>
+                 <el-option key="qm" label="骑马与砍杀" value="骑马与砍杀"></el-option>
+               
             </el-select>
           </el-form-item>
 

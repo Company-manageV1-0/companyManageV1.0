@@ -162,7 +162,7 @@ methods:{
       margin-left: 15px;
     }
     a{
-        color: white;
+        color: black;
         margin-left:80px;
         cursor: pointer;
     }
@@ -175,7 +175,7 @@ methods:{
         color: white;
     }
     span{
-        color: white;
+        color: black;
     }
     .one{
         margin-left:10%;
@@ -188,7 +188,7 @@ methods:{
       width: 250px;
       background-color: transparent;
       border-color:white ;
-      color: white;
+      color: black;
       margin-left:30px;
     }
 

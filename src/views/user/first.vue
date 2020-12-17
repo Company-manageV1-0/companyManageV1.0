@@ -343,10 +343,11 @@ export default {
 
 h1{
     float: left;
-    margin-left: 40%;
-    font-family:cursive;
-    margin-top: 1%;
-    color: white;
+    margin-left: 30%;
+    font-family:'Times New Roman';
+    /* margin-top: 1%; */
+    color: black;
+    font-size: 50px;
 }
 h2{
       font-family:cursive;
@@ -409,7 +410,7 @@ h2{
     height: 10%;
     width: 100%;
     border: 1px solid white;
-    background-color:#8a9edb;
+    background-color:rgba(0, 0, 0, 0);
 }
 
 

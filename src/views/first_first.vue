@@ -340,10 +340,11 @@ export default {
 
 h1{
     float: left;
-    margin-left: 40%;
-    font-family:cursive;
-    margin-top: 1%;
+    margin-left: 30%;
+    font-family:helvetica;
+    /* margin-top: 1%; */
     color: white;
+      font-size: 50px;
 }
 h2{
       font-family:cursive;

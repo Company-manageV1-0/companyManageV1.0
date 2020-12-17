@@ -10,9 +10,9 @@
           </div>
 
           <div>
-            <span class="username">{{juese}}</span>
+            <span class="username">{{juese}}&nbsp;欢迎您</span>
           </div>
-          <button class="exit" @click="exit">退出</button>  
+          <el-button class="exit" @click="exit" type="text">EXIT</el-button>  
         </div>
       </div>
     </div>
@@ -42,9 +42,9 @@
         <router-link to="../user_first/my_inform">
           <el-menu-item index="2-2" class="color">我的资料</el-menu-item>
          </router-link>
-         <router-link to="../user_first/apply">
+         <!-- <router-link to="../user_first/apply">
           <el-menu-item index="2-3" class="color">申请界面</el-menu-item>
-         </router-link>
+         </router-link> -->
       </el-submenu>
       <el-submenu index="3" v-if="questionfeedback">
         <template slot="title">
@@ -69,9 +69,9 @@
         <router-link to='../user_first/authorization'>
           <el-menu-item index="4-2" class="color">权限管理</el-menu-item>
         </router-link>
-        <router-link  to='../user_first/handle_apply' >
+        <!-- <router-link  to='../user_first/handle_apply' >
           <el-menu-item index="4-3" class="color">处理申请</el-menu-item>
-        </router-link>
+        </router-link> -->
         <router-link to='../user_first/log'>
           <el-menu-item index="4-4" class="color">日志</el-menu-item>
         </router-link>
@@ -116,6 +116,7 @@ export default {
 
   data() {
     return {
+      userid:'',
       picsrc:'',
       show:'',
       juese:'',
@@ -150,54 +151,64 @@ export default {
 
   //得到当前用户的角色，根据返回角色来判断导航栏的显示与隐藏
   mounted() {
+
      if(sessionStorage.getItem('token') == null){
             this.$router.push({ path:'/'}) 
        }
-   this.axios({
-     url:'http://121.36.57.122:8080//user-role',
+
+     this.axios({
+     url:'http://121.36.57.122:8080/user/own',
     headers:{
               'Authorization':sessionStorage.getItem("token")
         },
    }).then(res=>{
        console.log(res);
+        this.userid = res.data.result.id;
+        this.picsrc = res.data.result.img
+        this.juese = res.data.result.username;
+        console.log(this.userid)
+         this.axios({
+    url:'http://121.36.57.122:8080/user-role/'+this.userid,
+    headers:{
+          'Authorization':sessionStorage.getItem("token")
+        },
+      params:{
+        id:this.userid
+      }
+   }).then(res=>{
+       console.log(res);
         // console.log("getUserRole:" + res.result[0] || res.data.result[0])
-        this.show = res.data.result[0];
+        this.show = res.data.result.name;
+
      if(this.show == 'admin'){
-       this.juese = this.show
+      //  this.juese = this.show
      }if(this.show == 'user'){
         this.juese = this.show
        this.jishucenter = false
        this.managercenter = false
      }
      if(this.show == 'grammer'){
-        this.juese = this.show
-       this.usercenter = false
-       this.questionfeedback = false
-       this.managercenter = false
+        // this.juese = this.show
+      //  this.usercenter = false
+      //  this.questionfeedback = false
+      //  this.managercenter = false
      }
    }).catch(err=>{
      console.log(err)
-   }),
-
-   this.axios({
-    url:'http://121.36.57.122:8080/user/own',
-    method:'get',
-     headers: {
-          Authorization:sessionStorage.getItem("token"),
-       },
-   }).then(res=>{
-     console.log(res)
-      this.picsrc = res.data.result.img
+   })
    }).catch(err=>{
      console.log(err)
    })
-  },
-
+  }
 };
 </script>
 
 
 <style scoped>
+
+span{
+  font-family:youyuan;
+}
 
 /* .router {
   text-decoration: none;
@@ -237,13 +248,15 @@ export default {
 }
 
 .exit {
-  font-size: 14px;
+  /* font-size: 14px;
   margin-left: 20px;
   background-color: #00bfff;
   border: none;
   color: whitesmoke;
-  width: 80px;
+  width: 80px; */
   cursor: pointer;
+  margin-left: 10%;
+  margin-top: 2%;
 }
 
 .username {
@@ -260,10 +273,10 @@ export default {
   -ms-flex-align: center;
   align-items: center;
 }
-.pic img {
-  border: 1px solid black;
-  height: 40px;
-  width: 40px;
+.pic #img1 {
+  /* border: 1px solid black; */
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
 }
 .header-right {
@@ -277,6 +290,7 @@ export default {
   width:250px;
   line-height:70px;
   padding-left:50px;
+  font-family: youyuan;
   /* float: left; */
 }
 
@@ -284,13 +298,13 @@ export default {
   /* border: 1px solid black; */
   height: 10%;
   width: 100%;
-  background-color: black;
+  background-color:#618cac;
   font-size: 22px;
   color: white;
 }
 
 .left {
-  background-color: #485363;
+  background-color: #a0c1d2;
   /* border: 1px solid red; */
   /* z-index: -100; */
   height: 100%;
@@ -314,7 +328,7 @@ export default {
 }
 .el-menu-vertical-demo{
   margin-left:5%;
-   background-color: #485363;
+   background-color: #a0c1d2;
    border: none;
    width: 90%;
    /* z-index: 100;  */
@@ -322,7 +336,7 @@ export default {
    /* height:100%; */
 }
 .color{
-  background-color: #485363;
+  background-color:  #a0c1d2;
 }
 
 .color:hover{
@@ -336,6 +350,6 @@ export default {
 
 .el-menu-item.is-active {
     color: #409EFF;
-     background-color: #485363;
+     background-color: #a0c1d2;
 }
 </style>

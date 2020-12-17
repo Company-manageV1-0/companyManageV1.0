@@ -90,10 +90,16 @@ export default {
                     phone:this.form.phonenum,
                     email:this.form.email,
                     sex:this.form.sex,
-                    img:this.picsrc
+                    img:this.picsrc,
                 }
-            })
-            this.$message.success('修改信息成功!');
+                }).then(res=>{
+                  console.log(this.picsrc)
+                  console.log(res)
+                   this.$message.success('修改信息成功!');
+                }).catch(err=>{
+                  console.log(err)
+                })
+           
         },
 
          changepic(e){
