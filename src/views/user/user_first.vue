@@ -187,11 +187,11 @@ export default {
        this.jishucenter = false
        this.managercenter = false
      }
-     if(this.show == 'grammer'){
+     if(this.show == 'programmer'){
         // this.juese = this.show
       //  this.usercenter = false
       //  this.questionfeedback = false
-      //  this.managercenter = false
+       this.managercenter = false
      }
    }).catch(err=>{
      console.log(err)

@@ -12,6 +12,7 @@
     />
     <div class="container">
       <div class="form-box">
+
         <el-form ref="form" :model="form" label-width="20%">
           <el-form-item label="头像">
             <div class="absolute">
@@ -23,7 +24,7 @@
           </el-form-item>
 
           <el-form-item label="昵称">
-            <el-input v-model="form.nicheng" class="input" disabled></el-input>
+            <el-input v-model="form.nicheng" class="input" ></el-input>
           </el-form-item>
 
           <!-- <el-form-item label="姓名">
@@ -31,7 +32,7 @@
                     </el-form-item> -->
 
           <el-form-item label="常用邮箱">
-            <el-input v-model="form.email" class="input"></el-input>
+            <el-input v-model="form.email" class="input" disabled></el-input>
           </el-form-item>
 
           <el-form-item label="手机号">
@@ -78,9 +79,11 @@ export default {
     methods: {
 
         //修改信息
-        onSubmit() {      
+        onSubmit() {
+          console.log(this.form)      
+          console.log(this.picsrc)
             this.axios({
-                url:'http://121.36.57.122:8080/user',
+                url:'http://121.36.57.122:8080/user/own',
                  headers: {
                  Authorization:sessionStorage.getItem("token"),
                     },
@@ -89,20 +92,19 @@ export default {
                     username:this.form.nicheng,
                     phone:this.form.phonenum,
                     email:this.form.email,
-                    sex:this.form.sex,
+                    sex:this.form.resource,
                     img:this.picsrc,
-                }
+                  }
                 }).then(res=>{
-                  console.log(this.picsrc)
                   console.log(res)
-                   this.$message.success('修改信息成功!');
+                  this.$message.success('修改信息成功!');
                 }).catch(err=>{
                   console.log(err)
                 })
-           
         },
 
-         changepic(e){
+
+        changepic(e){
         let file = e.target.files[0];
         let param = new FormData(); //创建form对象
         param.append('file',file);//通过append向form对象添加数据
@@ -117,9 +119,7 @@ export default {
             console.log(response.data);
             console.log(response.data.result)
             this.picsrc = response.data.result;
-            
           })
-    
          },
     },
 
@@ -134,15 +134,12 @@ export default {
         }).then(res=>{
             console.log(res)
             console.log(res.data.result.username)
-
-            this.form.nicheng = res.data.result.username;
-           
-            this.form.email = res.data.result.email;
-            this.form.phonenum = res.data.result.phone; 
-            this.form.resource = res.data.result.sex;
-
-          
-            this.pic_url = res.data.result.img;
+            this.form.resource = res.data.result.sex
+            this.form.nicheng = res.data.result.username
+            this.form.email = res.data.result.email
+            this.form.phonenum = res.data.result.phone
+            
+            this.pic_url = res.data.result.img
             console.log(this.pic_url)
             // var img = document.getElementsByClassName('.img1');
             // console.log(img)
@@ -150,14 +147,10 @@ export default {
             this.picsrc = this.pic_url;
                 // img.src = '../../assets/img.jpg';
             //  console.log(img.src)
-           
         }).catch(err=>{
             console.log(err)
         })
-
     }
-
-
 }
 </script>
 

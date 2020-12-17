@@ -187,7 +187,7 @@ methods:{
     .back_image{
     width: 100%;
     height: 100%;
-    background: url(../assets/login-bg.jpg) center center no-repeat;
+    background: url(../assets/login-7.jpg) center center no-repeat;
     background-size: 100% 100%;
     position: fixed;
     }

@@ -317,8 +317,10 @@
                 this.addUserVisible=false;
             },
 
+
+
             delUser(user_id){
-                alert("确认删除？ \n 若不想删除，则按F5刷新此页面")
+                // alert("确认删除？ \n 若不想删除，则按F5刷新此页面")
 
                 this.axios({
                     method:"delete",
@@ -328,15 +330,18 @@
                     },
                     headers:{
               'Authorization':sessionStorage.getItem("token")
-        },
+                    },
                 })
-                // alert("删除成功")
+                this.$message.success('删除成功！');
+
             },
 
             edit_user(){
                 var element = document.getElementById("user_duty");
                 element.setAttribute()
             },
+
+            
             handleCreate(usernameOfUser,indexOfUser){
                 this.dialogFormVisible = true;
                 this.total_username = usernameOfUser;
