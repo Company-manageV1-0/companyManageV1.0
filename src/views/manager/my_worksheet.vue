@@ -56,8 +56,13 @@
 
 
                   <!-- TODO 详细反馈判断字符串长度 -->
-                  <!-- TODO 添加解决方式 -->
 
+
+
+                  <!-- DONE 添加解决方式 -->
+                  <a-descriptions-item label="解决方式" :span="3">
+                    {{showTableData[scope.$index].solution}}
+                  </a-descriptions-item>
 
 
                   <a-descriptions-item label="详细反馈" :span="3">
