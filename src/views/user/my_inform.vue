@@ -1,12 +1,12 @@
 <template>
   <div class="center">
-    <el-Icon type="arrow-left" />
+    <!-- <el-Icon type="arrow-left" /> -->
     <a-page-header
       class="header"
       title="用户中心 ｜ 我的资料"
       @back="
         () => {
-          this.$router.push({ path: '../user_first/' });
+          this.$router.push({ path: '../user_first/first' });
         }
       "
     />

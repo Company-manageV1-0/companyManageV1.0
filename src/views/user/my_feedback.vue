@@ -1,11 +1,21 @@
 <template>
   <div class="center">
-    <!--面包屑导航区域-->
+    <!-- 面包屑导航区域
     <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/user_first' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/user_first/first' }">首页</el-breadcrumb-item>
         <el-breadcrumb-item>用户中心</el-breadcrumb-item>
         <el-breadcrumb-item>我的反馈</el-breadcrumb-item>
-    </el-breadcrumb>
+    </el-breadcrumb> -->
+
+        <a-page-header
+      class="header"
+      title="用户中心 ｜ 我的反馈"
+      @back="
+        () => {
+          this.$router.push({ path: '../user_first/first' });
+        }
+      "
+    />
 
     <el-card >
         <!--搜索与添加区域-->

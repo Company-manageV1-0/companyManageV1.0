@@ -1,8 +1,10 @@
 <template>
 <div class="center">
-    <span>管理员中心 / 日志统计</span>
-    <br/>
-    <hr/>
+  <a-page-header
+      class="header"
+      title="用户中心 ｜ 日志"
+      @back=" () => { this.$router.push({ path: '../user_first/first' }); } "
+    />
 <!--    {{logList}}-->
 <!--    <el-table :data="list" border stripe="">-->
 <!--        <el-table-column type="index" label="#"></el-table-column>-->

@@ -1,10 +1,11 @@
 
 <template>
 <div class="center">
-    <span>管理员中心 / 权限管理</span>
-    <br/>
-    <hr/>
-    <br/>
+   <a-page-header
+      class="header"
+      title="用户中心 ｜ 权限管理"
+      @back=" () => { this.$router.push({ path: '../user_first/first' }); } "
+    />
 
    
 

@@ -1,10 +1,10 @@
 <template>
 <div class="center">
-    <el-Icon type="arrow-left" />
+    <!-- <el-Icon type="arrow-left" /> -->
     <a-page-header
       class="header"
       title="技术人员中心 ｜ 软件版本更新"
-      @back=" () => { this.$router.push({ path: '../user_first/' }); } "
+      @back=" () => { this.$router.push({ path: '../user_first/first' }); } "
     />
      <div class="text"> 
         <el-row class="warp">
@@ -45,12 +45,14 @@
                     </el-form-item>
 
                      <el-form-item label="上传此次版本">
-                         <input type="file" name='file'  id="file" @change="uploadConfig">
+                        <el-button class="button_style">点击上传文件</el-button>
+                         <input type="file" name='file'  id="file" @change="uploadConfig" class="file">
                     </el-form-item>
 
 
                     <el-form-item>
                         <el-button type="primary" @click="onSubmit" class="button">提交</el-button>
+                         <el-button type="primary" @click="cancle" class="button">取消</el-button>
                     </el-form-item>
                 </el-form>
 
@@ -101,6 +103,16 @@ export default {
     },                
               
     methods: {   
+        cancle(){
+                this.infoForm.a_title = ''
+                this.infoForm.a_content = ''
+                this.infoForm.a_zhaiyao = ''
+                this.infoForm.a_name = ''
+                this.infoForm.solution = ''
+                this.infoForm.title = ''
+                this.infoForm.a_version = ''
+                this.file_url = ''
+        },
 
         //上传文件得到返回的服务器存储地址
         uploadConfig(e){
@@ -119,6 +131,7 @@ export default {
             console.log(response.data);
             console.log(response.data.result)
             this.file_url = response.data.result;
+            this.$message.success("上传成功");
           })
         },
 
@@ -142,6 +155,7 @@ export default {
              }).then(res=>{
                  console.log(res)
                   this.$message.success('发布成功！');
+                   this.infoForm.a_title = ''
                    this.infoForm.a_content = ''
                    this.infoForm.a_zhaiyao = ''
                    this.infoForm.a_name = ''
@@ -164,6 +178,12 @@ export default {
 
 <style scoped>
 
+.file{
+    opacity: 0;
+    margin-left: -12%;
+    cursor: pointer;
+    width: 60px;
+}
 
 
 .one{

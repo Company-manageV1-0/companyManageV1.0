@@ -1,9 +1,10 @@
 <template>
   <div class="center">
-    <span>用户中心 / 公共社区</span>
-    <br />
-    <hr />
-    <br />
+    <a-page-header
+      class="header"
+      title="用户中心 ｜ 知识库"
+      @back=" () => { this.$router.push({ path: '../user_first/first' }); } "
+    />
    
     <div class="pic">
       <div class="search">
