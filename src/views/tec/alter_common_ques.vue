@@ -1,6 +1,6 @@
 <template>
 <div class="center">
-    <Icon type="arrow-left" />
+    <el-Icon type="arrow-left" />
     <a-page-header
       class="header"
       title="技术人员中心 ｜ 软件版本更新"
@@ -45,7 +45,7 @@
                     </el-form-item>
 
                      <el-form-item label="上传此次版本">
-                         <input type="file" value="" id="file" @change="uploadConfig" ref="inputer">
+                         <input type="file" name='file'  id="file" @change="uploadConfig">
                     </el-form-item>
 
 
@@ -68,6 +68,7 @@ import 'quill/dist/quill.bubble.css'
 export default {
     data() {
         return {
+            file_url:'',
             //      key_file:{},
             infoForm: {
                 a_title: '',
@@ -101,23 +102,25 @@ export default {
               
     methods: {   
 
-        // uploadConfig(){
-            
-        //      this.axios({
-        //          url:'http://121.36.57.122:8080/file/upload',
-        //          headers:{
-        //             'Authorization':sessionStorage.getItem("token")
-        //             },
-        //          method:'post',
-        //          params:{
-        //              file:formData
-        //          }
-        //      }).then(res=>{
-        //          console.log(res)
-        //      }).catch(err=>{
-        //           console.log(err)
-        //      })
-        // },
+        //上传文件得到返回的服务器存储地址
+        uploadConfig(e){
+        let file = e.target.files[0];
+        let param = new FormData(); //创建form对象
+        param.append('file',file);//通过append向form对象添加数据
+        console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
+        let config = {
+          headers:{'Content-Type':'multipart/form-data',
+                    'Authorization':sessionStorage.getItem("token")
+       
+          }
+        }; //添加请求头
+        this.$http.post('http://121.36.57.122:8080/file/upload',param,config)
+          .then(response=>{
+            console.log(response.data);
+            console.log(response.data.result)
+            this.file_url = response.data.result;
+          })
+        },
 
         onSubmit() {  
             console.log(this.infoForm)
@@ -129,12 +132,12 @@ export default {
                  method:'post',
                  params:{
                     eddescribe:this.infoForm.a_content,
-                    fileLink:'',
                     remark:this.infoForm.a_zhaiyao,
                     softwareId:this.infoForm.a_name,
                     solution:this.infoForm.solution,
                     title:this.infoForm.a_title,
-                    versionNumber:this.infoForm.a_version
+                    versionNumber:this.infoForm.a_version,
+                    fileLink:this.file_url
                  }
              }).then(res=>{
                  console.log(res)
@@ -145,6 +148,7 @@ export default {
                    this.infoForm.solution = ''
                    this.infoForm.title = ''
                    this.infoForm.a_version = ''
+                   this.file_url = ''
              }).catch(err=>{
                   console.log(err)
              })

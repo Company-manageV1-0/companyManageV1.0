@@ -6,7 +6,7 @@
       <div class="header-right">
         <div class="touxiang">
           <div class="pic">
-            <img id='img1' src="../../assets/img.jpg" />
+            <img :src="picsrc" id='img1'/>
           </div>
 
           <div>
@@ -116,6 +116,7 @@ export default {
 
   data() {
     return {
+      picsrc:'',
       show:'',
       juese:'',
       showfirst:true,
@@ -171,6 +172,19 @@ export default {
        this.questionfeedback = false
        this.managercenter = false
      }
+   }).catch(err=>{
+     console.log(err)
+   }),
+
+   this.axios({
+    url:'http://121.36.57.122:8080/user/own',
+    method:'get',
+     headers: {
+          Authorization:sessionStorage.getItem("token"),
+       },
+   }).then(res=>{
+     console.log(res)
+      this.picsrc = res.data.result.img
    }).catch(err=>{
      console.log(err)
    })
