@@ -12,11 +12,11 @@
         <div class="role">选择申请的角色
             <!-- TODO 下拉列表：申请的角色 -->
             <el-form-item label="性别">
-            <el-radio-group :value='userRole'>
-              <el-radio label="男"></el-radio>
-              <el-radio label="女"></el-radio>
-              <el-radio label="其它"></el-radio>
-            </el-radio-group>
+              <el-radio-group v-model="form.resource">
+                <el-radio label="男"></el-radio>
+                <el-radio label="女"></el-radio>
+                <el-radio label="其它"></el-radio>
+              </el-radio-group>
           </el-form-item>
         </div>
 
@@ -37,7 +37,9 @@ export default {
   data() {
     return {
       //用户角色列表
-      userRole:['user','programmer','admin'],
+      form:{
+          // userRole
+      }
     };
   },
   methods:{
@@ -47,11 +49,6 @@ export default {
     },
     handleMenuClick(e) {
       console.log('click', e);
-    },
-    
-    /**TODO 页面加载进来获取角色数据*/
-    getUserRole(){
-        return this.userRole;
     },
 
 
