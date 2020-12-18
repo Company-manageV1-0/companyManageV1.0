@@ -72,7 +72,8 @@
                 <a-col :span="24">
                   <a-form-item label="解决方式">
                     <a-textarea
-                      :value="solutionTextVal"
+                      :defaultValue="solutionTextVal"
+                      :value="solutionText"
                       v-decorator="[
                         'description',
                         {
@@ -82,7 +83,6 @@
                       :auto-size="{ minRows: 3, maxRows: 9 }"
                       placeholder="请输入该反馈信息的解决方式"
                       @change="handleSolutiontextChange">
-                    {{solutionText}}
                     </a-textarea>
                   </a-form-item>
                 </a-col>
@@ -135,23 +135,21 @@ let pagecount = Number;
 let solutionTextVal = "";
 console.log(solutionTextVal);
 export default {
-  props:{
-    Value:Object,//v-model
-  },
   methods: {
     //mask.show 
     //get engineerID
     showDrawer(feedBackId, solution) {
       this.maskVisible = true;
-      console.log("feedbackid:" + feedBackId);
-      this.solutionText = solution;
+      console.log("feedbackid:" + feedBackId, "solution:" + solution);
+      solutionTextVal = solution;
     },
     /**TODO onclose关掉的提醒 */ 
     //mask.cancel close
     onClose() {
       this.maskVisible = false;
-      this.solutionText = '';
-      console.log(this.solutionText)
+      console.log(solutionTextVal)
+      solutionTextVal = '';
+      console.log(solutionTextVal)
       this.getAllFeedbackData();
     },
     /**TODO onpost的提交操作 */
@@ -172,9 +170,9 @@ export default {
     //post All Feedback data
     postAllFeedbackData(id){
       console.log(id)
-      console.log(this.solutionTextVal)
+      console.log(solutionTextVal)
       this.axios({
-        method:"post",
+        method:"put",
         url:"http://121.36.57.122:8080/feedback",
         headers:{
               Authorization: sessionStorage.getItem("token"),
@@ -268,8 +266,7 @@ export default {
   },
   data() {
     return {
-      solutionText:{},
-      solutionTextVal:[],
+      solutionTextVal,
       form: this.$form.createForm(this),
       showTableData,
       //根据数据进行page页数分页

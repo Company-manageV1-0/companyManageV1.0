@@ -192,7 +192,7 @@
               <a-button :style="{ marginRight: '8px' }" @click="onClose">
                 取消
               </a-button>
-              <a-button type="primary" @click="onPost()">
+              <a-button type="primary" @click="onPost">
                 提交
               </a-button>
             </div>
