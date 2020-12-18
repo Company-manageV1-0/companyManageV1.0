@@ -21,7 +21,7 @@
           <font v-else-if="scope.row.isdeal === 3" color="green">已处理</font>
         </template>
       </el-table-column>
-      <el-table-column prop="solution" label="解决方式" width="100"></el-table-column>
+      <el-table-column prop="solution" label="解决方式" width="157"></el-table-column>
       <el-table-column fixed="right" label="操作" width="170">
         <template slot-scope="scope">
           <a-popover placement="left">

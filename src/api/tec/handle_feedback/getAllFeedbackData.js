@@ -27,13 +27,16 @@ import axios from 'axios'
   },
  */
 function getAllFeedbackData(){
-    return axios({
-        method:'GET',
-        url:'http://121.36.57.122:8080/feedback',
-        headers:{
-               'Authorization':sessionStorage.getItem("token")
-           },
-      })
+    axios({
+      method:'GET',
+      url:'http://121.36.57.122:8080/feedback',
+      headers:{
+              'Authorization':sessionStorage.getItem("token")
+          },
+    }).then((res)=>{
+      let allFeedbackData = res.data.result.records;
+      return allFeedbackData;
+    })
 }
 
 export { getAllFeedbackData }
