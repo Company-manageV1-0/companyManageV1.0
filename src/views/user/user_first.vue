@@ -182,6 +182,7 @@ export default {
 
      if(this.show == 'admin'){
       //  this.juese = this.show
+      this.jishucenter = false
      }if(this.show == 'user'){
         this.juese = this.show
        this.jishucenter = false

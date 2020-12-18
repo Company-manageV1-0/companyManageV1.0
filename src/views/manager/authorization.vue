@@ -4,7 +4,7 @@
   <br/>
    <a-page-header
       class="header"
-      title="用户中心 ｜ 权限管理"
+      title="管理员中心 ｜ 权限管理"
       @back=" () => { this.$router.push({ path: '../user_first/first' }); } "
     />
 
@@ -70,7 +70,6 @@
   </el-table> -->
 
   <el-table
-  
     :data="tableData4.slice((currentPage-1)*pageSize,currentPage*pageSize)"
     stripe
     :row-style="{height:'15px'}"
@@ -114,14 +113,14 @@
         </el-button>
 
         <el-button
-        @click="dialogFormVisibleshow(scope.row.name)"
+        @click="dialogFormVisibleshow(scope.row.id)"
           type="text"
           size="small">
          <i class="el-icon-setting"></i>
         </el-button>
 
           <el-button
-        @click="add_group_"
+          @click="add_group_"
           type="text"
           size="small">
          <i class="el-icon-plus"></i>
@@ -136,10 +135,11 @@
  <!-- 只有一页时隐藏页码 -->
  <div class="page">
  <el-pagination
-        :hide-on-single-page="value"
+     
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-size="pageSize"
+        :page-sizes="[11]"
         layout="total, sizes, prev, pager, next, jumper"
         :total="tableData4.length" class="fy">
 </el-pagination>
@@ -186,7 +186,7 @@
               <th class="text-middle text-right thWidth">
                 <div class="checkbox-primary checkbox-inline checkbox-right check-all">
                   <input type="checkbox" id="allCheckerindex" @click="allCheckerindex">
-                  <label class="text-right" for="allCheckerindex">首页</label>
+                  <label class="text-right">首页</label>
                 </div>
               </th>
               <td id="index" class="pv-10px" colspan="2">
@@ -200,7 +200,7 @@
               <th class="text-middle text-right thWidth">
                 <div class="checkbox-primary checkbox-inline checkbox-right check-all">
                   <input type="checkbox"  value="15" id="fi15" @click="usersall">
-                  <label class="text-right" for="allCheckerusers" style="color:#409EFF" >用户中心</label>
+                  <label class="text-right" style="color:#409EFF" >用户中心</label>
                 </div>
               </th>
             
@@ -210,31 +210,32 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckmyfeedback" @click="allCheckmyfeedback">
-            <label class="text-right" for="allCheckmyfeedback">我的反馈</label>
+            <label class="text-right" >我的反馈</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli"  value="1" id="fi1"> 
-            <label for="actions[testreport]browse">提交我的反馈</label></div>          </div>
+            <label>提交我的反馈</label></div>          </div>
+
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="2" id="fi2"> 
-            <label for="actions[testreport]create">删除我的反馈</label></div>
+            <label>删除我的反馈</label></div>
             </div>
             </td>
       </tr>
 
-        <tr class=" even">
+        <tr class=" even" >
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckapply">
-            <label class="text-right" for="allCheckapply">申请界面</label>
+            <label class="text-right">申请界面</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="3" id="fi3">
-             <label for="actions[testreport]browse">提交申请</label></div> </div>
+             <label>提交申请</label></div> </div>
             </td>
       </tr>
 
@@ -242,13 +243,13 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allChecmyinform">
-            <label class="text-right" for="allCheckapply">我的资料</label>
+            <label class="text-right" >我的资料</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="4" id="fi4"> 
-            <label for="actions[testreport]browse">修改我的资料</label></div> </div>
+            <label >修改我的资料</label></div> </div>
             </td>
       </tr>
 
@@ -257,13 +258,13 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckversion">
-            <label class="text-right" for="allCheckapply">版本库</label>
+            <label class="text-right" >版本库</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="5" id="fi5"> 
-            <label for="actions[testreport]browse">下载版本库</label></div>          </div>
+            <label >下载版本库</label></div>          </div>
             </td>
       </tr>
 
@@ -271,7 +272,7 @@
               <th class="text-middle text-right thWidth">
                 <div class="checkbox-primary checkbox-inline checkbox-right check-all">
                   <input type="checkbox"  value="17" id="fi17" @click="manager">
-                  <label class="text-right" for="allCheckmanagers" style="color:#409EFF">管理员中心</label>
+                  <label class="text-right" style="color:#409EFF">管理员中心</label>
                 </div>
               </th>
              
@@ -281,16 +282,16 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckfenpei" @click="fenpei">
-            <label class="text-right" for="allCheckapply">分配工单</label>
+            <label class="text-right" >分配工单</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"   name="bianli" value="6" id="fi6"> 
-             <label for="actions[testreport]browse">分配我的工单</label></div></div>
+             <label >分配我的工单</label></div></div>
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="7" id="fi7">
-             <label for="actions[testreport]browse">删除工单</label></div></div>
+             <label >删除工单</label></div></div>
             </td>
       </tr>
 
@@ -298,20 +299,20 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckmanage" @click="guanli">
-            <label class="text-right" for="allCheckapply">管理用户</label>
+            <label class="text-right" >管理用户</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="8" id="fi8">
-            <label for="actions[testreport]browse">增加用户</label></div></div>
+            <label >增加用户</label></div></div>
 
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="9" id="fi9"> 
-            <label for="actions[testreport]browse">删除用户</label></div></div>
+            <label >删除用户</label></div></div>
              <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"   name="bianli" value="10" id="fi10">
-            <label for="actions[testreport]browse">修改用户角色</label></div></div>
+            <label >修改用户角色</label></div></div>
             </td>
       </tr>
 
@@ -319,27 +320,27 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allChecklog">
-            <label class="text-right" for="allCheckapply">日志统计</label>
+            <label class="text-right" >日志统计</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox" name="bianli" value="11" id="fi11">
-             <label for="actions[testreport]browse">查看日志</label></div></div>
+             <label >查看日志</label></div></div>
             </td>
       </tr>
 
-      <tr class="bg-grey">
+      <tr class="bg-grey" >
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckchuli">
-            <label class="text-right" for="allCheckapply">处理申请</label>
+            <label class="text-right" >处理申请</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
-            <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="13" id="fi13"> 
-            <label for="actions[testreport]browse">处理申请</label></div> </div>
+            <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="12" id="fi12"> 
+            <label >处理申请</label></div> </div>
             </td>
       </tr>
 
@@ -347,7 +348,7 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" value="16" id="fi16" @click="jishu">
-            <label class="text-right" for="allChecktec" style="color:#409EFF">技术人员中心</label>
+            <label class="text-right"  style="color:#409EFF">技术人员中心</label>
           </div>
         </th>
       </tr>
@@ -356,13 +357,13 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckadd">
-            <label class="text-right" for="allCheckapply">增加版本库</label>
+            <label class="text-right" >增加版本库</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
-            <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="12" id="fi12"> 
-            <label for="actions[testreport]browse">提交最新版本信息</label></div> </div>
+            <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="13" id="fi13"> 
+            <label >提交最新版本信息</label></div> </div>
             </td>
       </tr>
 
@@ -370,13 +371,13 @@
         <th class="text-middle text-right thWidth">
           <div class="checkbox-primary checkbox-inline checkbox-right check-all">
             <input type="checkbox" id="allCheckfeeback">
-            <label class="text-right" for="allCheckfeeback">处理反馈</label>
+            <label class="text-right" >处理反馈</label>
           </div>
         </th>
             <td id="testreport" class="pv-10px" colspan="2">
             <div class="group-item">
             <div class="checkbox-primary checkbox-inline"><input type="checkbox"  name="bianli" value="14" id="fi14"> 
-            <label for="actions[testreport]browse">处理反馈</label></div> </div>
+            <label >处理反馈</label></div> </div>
             </td>
       </tr>
 
@@ -406,15 +407,16 @@ import $ from  'jquery'
     data() {
 
       return {
+      
         // 当前页
       currentPage: 1,
       // 每页多少条
        pageSize: 11,
-      date: '',
+       date: '',
       // tableData: [],
       search: '',
       // options: [],
-      value:false,
+      
       // list: '',
       componentlist: [],
       statuslist: [],
@@ -425,7 +427,6 @@ import $ from  'jquery'
           remark:'',
         },
         character:'',
-
         string:[],
         list:[],
 
@@ -520,7 +521,7 @@ import $ from  'jquery'
         $("input:checkbox[value='9']").attr('checked','true');
         $("input:checkbox[value='10']").attr('checked','true');
         $("input:checkbox[value='11']").attr('checked','true');
-        $("input:checkbox[value='13']").attr('checked','true');
+        $("input:checkbox[value='12']").attr('checked','true');
       }else{
           $("input:checkbox[value='6']").attr('checked',false);
           $("input:checkbox[value='7']").attr('checked',false);
@@ -528,7 +529,7 @@ import $ from  'jquery'
           $("input:checkbox[value='9']").attr('checked',false);
           $("input:checkbox[value='10']").attr('checked',false);
           $("input:checkbox[value='11']").attr('checked',false);
-          $("input:checkbox[value='13']").attr('checked',false);
+          $("input:checkbox[value='12']").attr('checked',false);
       }
   },
 
@@ -555,7 +556,7 @@ import $ from  'jquery'
       }else{
         $("input:checkbox[value='8']").attr('checked',false);
         $("input:checkbox[value='9']").attr('checked',false);
-        $("input:checkbox[value='10']").attr('checked','true');
+        $("input:checkbox[value='10']").attr('checked',false);
       }
   },
 
@@ -563,10 +564,10 @@ jishu(){
   var a = document.getElementById('fi16')
    if(a.checked){
         console.log(a.checked)
-        $("input:checkbox[value='12']").attr('checked','true');
+        $("input:checkbox[value='13']").attr('checked','true');
         $("input:checkbox[value='14']").attr('checked','true');
       }else{
-          $("input:checkbox[value='12']").attr('checked',false);
+          $("input:checkbox[value='13']").attr('checked',false);
           $("input:checkbox[value='14']").attr('checked',false);
       }
 },
@@ -642,20 +643,25 @@ add_group_sure(){
           // }
           
           // $("input:checkbox[value='1']").attr('checked','true');
+          console.log(res.data.result[0])
 
-          if(res.data.result[0] == 1){
-            console.log("is 1")
+          if(res.data.result[0] == '1'){
+           
              $("input:checkbox[value='0']").attr('checked','true');
           }else{
-            console.data.log("not 1")
+           
              $("input:checkbox[value='0']").attr('checked',false);
           }
           if(res.data.result[1] == 1){
-             $("input:checkbox[value='1']").attr('checked','true');
+              console.log('is 1')
+             $("input:checkbox[value='1']").attr('checked',true);
+             console.log(document.getElementById('fi1').checked)
            }else{
+         
              $("input:checkbox[value='1']").attr('checked',false);
           }
            if(res.data.result[2] == 1){
+              console.log('is 1')
              $("input:checkbox[value='2']").attr('checked','true');
            }else{
              $("input:checkbox[value='2']").attr('checked',false);
@@ -676,21 +682,22 @@ add_group_sure(){
              $("input:checkbox[value='5']").attr('checked',false);
           }
            if(res.data.result[6] == 1){
-             console.log(res.data.result[6])
+             
              $("input:checkbox[value='6']").attr('checked','true');
            }else{
+            
              $("input:checkbox[value='6']").attr('checked',false);
           }
            if(res.data.result[7] == 1){
-              console.log(res.data.result[7])
              $("input:checkbox[value='7']").attr('checked','true');
            }else{
-             console.log('dada')
+            
              $("input:checkbox[value='7']").attr('checked',false);
           }
            if(res.data.result[8] == 1){
              $("input:checkbox[value='8']").attr('checked','true');
            }else{
+             
              $("input:checkbox[value='8']").attr('checked',false);
           }
            if(res.data.result[9] == 1){
@@ -711,16 +718,20 @@ add_group_sure(){
            if(res.data.result[12] == 1){
              $("input:checkbox[value='12']").attr('checked','true');
            }else{
-             $("input:checkbox[value='12']").attr('checked',false);
+             
+             $("input:checkbox[value='1']").attr('checked',false);
           }
            if(res.data.result[13] == 1){
              $("input:checkbox[value='13']").attr('checked','true');
            }else{
+            
              $("input:checkbox[value='13']").attr('checked',false);
           }if(res.data.result[14] == 1){
              $("input:checkbox[value='14']").attr('checked','true');
            }else{
+            
              $("input:checkbox[value='14']").attr('checked',false);
+            
           }
           
           
@@ -874,14 +885,14 @@ add_group_sure(){
           method:'post',
 
           params:{
-            premission:A+','+B +',' +C +','+D+','+E +',' +F +','+G+','
-            +H +',' +I +','+J+','+K +',' +L +','+M +',' + N +','+W,
+            premission:A+','+B+','+C+','+D+','+E+','+F+','+G+','+H+','+I+','+N+','+J+',' +L+','+L+','+M+','+W,
             role:this.character
           }
         }).then(res=>{
             console.log(res)
              this.string = []
              this.$message.success('修改权限成功！');
+             this.character = ''
         }).catch(err=>{
           console.log(err)
         })
@@ -921,6 +932,10 @@ add_group_sure(){
 </script>
 
 <style scoped>
+
+.el-table{
+  font-size: 12px;
+}
  .ant-page-header-heading-title {
     display: block;
     float: left;

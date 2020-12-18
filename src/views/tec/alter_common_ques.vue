@@ -164,6 +164,7 @@ export default {
                    this.file_url = ''
              }).catch(err=>{
                   console.log(err)
+                  this.$router.push({ path:'/user_first/four'})
              })
             console.log(this.infoForm)
         }

@@ -111,6 +111,7 @@ export default {
            this.downloadurl = res.data.result.fileLink
       }).catch(err=>{
           console.log(err)
+          this.$router.push({ path:'/user_first/four'})
       })
   }
 };

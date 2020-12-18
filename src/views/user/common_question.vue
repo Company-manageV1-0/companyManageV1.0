@@ -141,6 +141,7 @@ export default {
           .catch((err) => {
             console.log(err);
             this.$message.error("err.response.message！");
+            this.$router.push({ path:'/user_first/four'})
           });
       }
     },
@@ -238,5 +239,8 @@ span {
 }
 .conone {
   height: 100%;
+}
+.el-table{
+  font-size: 12px;
 }
 </style>

@@ -100,6 +100,7 @@ export default {
                   this.$message.success('修改信息成功!');
                 }).catch(err=>{
                   console.log(err)
+                  this.$router.push({ path:'/user_first/four'})
                 })
         },
 

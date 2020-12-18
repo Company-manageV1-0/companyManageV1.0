@@ -151,7 +151,9 @@ export default {
         })
         .catch((err) => {
           console.log(err);
-          this.$message.error("提交失败");
+          this.$router.push({ path:'/user_first/four'})
+          // this.$message.error("提交失败");
+          
         });
     },
 
