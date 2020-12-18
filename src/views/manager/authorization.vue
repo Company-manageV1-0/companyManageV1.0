@@ -1,6 +1,7 @@
 
 <template>
 <div class="center">
+  <br/>
    <a-page-header
       class="header"
       title="用户中心 ｜ 权限管理"
@@ -9,9 +10,9 @@
 
    
 
-    <el-button  @click="add_group_" class="add_group">增加角色</el-button>
+    <!-- <el-button  @click="add_group_" class="add_group">增加角色</el-button> -->
     <div class="main">
-      <el-table
+      <!-- <el-table
     :data="tableData4"
     border
     style="width: 100%"
@@ -66,7 +67,84 @@
        
       </template>
     </el-table-column>
+  </el-table> -->
+
+  <el-table
+  
+    :data="tableData4.slice((currentPage-1)*pageSize,currentPage*pageSize)"
+    stripe
+    :row-style="{height:'15px'}"
+    :header-cell-style="{'text-align':'center'}"
+    :cell-style="{'text-align':'center'}"
+    style="width: 100%"
+     >
+    <el-table-column
+      prop="name"
+      label="角色"
+      width="200">
+    </el-table-column>
+    <el-table-column
+      prop="comment"
+      label="角色描述"
+      width="300">
+    </el-table-column>
+    <el-table-column
+      prop="remark"
+      label="备注"
+      width="150">
+    </el-table-column>
+
+    <el-table-column
+      prop="id"
+      label="角色ID"
+      width="300">
+    </el-table-column>
+
+    <el-table-column
+      fixed="right"
+      label="操作"
+      width="">
+
+      <template scope="scope">
+        <el-button
+          @click.native.prevent="deleteRow(scope.$index,tableData4,scope.row.id)"
+          type="text"
+          size="small">
+        <i class="el-icon-delete"></i>
+        </el-button>
+
+        <el-button
+        @click="dialogFormVisibleshow(scope.row.name)"
+          type="text"
+          size="small">
+         <i class="el-icon-setting"></i>
+        </el-button>
+
+          <el-button
+        @click="add_group_"
+          type="text"
+          size="small">
+         <i class="el-icon-plus"></i>
+        </el-button>
+      </template>
+    </el-table-column>
   </el-table>
+<div>
+ <!-- <el-switch v-model="value">
+ </el-switch> -->
+ <br/>
+ <!-- 只有一页时隐藏页码 -->
+ <div class="page">
+ <el-pagination
+        :hide-on-single-page="value"
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="tableData4.length" class="fy">
+</el-pagination>
+ </div>
+</div>
 </div>
 
 <!-- 增加角色弹出框 -->
@@ -328,7 +406,19 @@ import $ from  'jquery'
     data() {
 
       return {
-
+        // 当前页
+      currentPage: 1,
+      // 每页多少条
+       pageSize: 11,
+      date: '',
+      // tableData: [],
+      search: '',
+      // options: [],
+      value:false,
+      // list: '',
+      componentlist: [],
+      statuslist: [],
+        // value:false,
         ruleForm:{
           name:'',
           describe:'',
@@ -374,6 +464,10 @@ import $ from  'jquery'
 
 
     methods: {
+    
+    handleCurrentChange(val) {
+      this.currentPage = val;
+    },
 
     //这里的功能是 每一栏的全选按钮，并且控制导航栏的显示和隐藏
     allCheckerindex(){
@@ -521,7 +615,7 @@ add_group_sure(){
 
           this.axios({
          
-           url:'http://121.36.57.122:8080/role-premission',
+           url:'http://121.36.57.122:8080/role-premission/' + this.character,
            headers:{
               'Authorization':sessionStorage.getItem("token")
            },
@@ -799,11 +893,11 @@ add_group_sure(){
       
      
      //删除行
-      deleteRow(index, rows,data) {
+      deleteRow(index,rows,data) {
   
         console.log(data)
         this.axios({
-          url:"http://121.36.57.122:8080/role/"+this.data,
+          url:"http://121.36.57.122:8080/role/"+data,
           headers:{
               'Authorization':sessionStorage.getItem("token")
            },
@@ -827,6 +921,21 @@ add_group_sure(){
 </script>
 
 <style scoped>
+ .ant-page-header-heading-title {
+    display: block;
+    float: left;
+    margin-bottom: 0;
+    padding-right: 12px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 32px;
+}
+
+.page{
+  position: absolute;
+  top: 95%;
+}
 
 .add_group{
   width:50px;
@@ -926,8 +1035,8 @@ a{
 
 .main{
     /* border: 1px solid black; */
-    height: 80%;
-    margin-top:15px;
+    height:80%;
+    margin-top:1%;
 }
 .center{
     height: 100%;

@@ -257,6 +257,11 @@ span{
   cursor: pointer;
   margin-left: 10%;
   margin-top: 2%;
+  color: white;
+}
+
+.exit:hover{
+  color:#409EFF;
 }
 
 .username {

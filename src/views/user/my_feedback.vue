@@ -1,35 +1,23 @@
 <template>
   <div class="center">
-    <!-- 面包屑导航区域
+    <!--面包屑导航区域-->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item :to="{ path: '/user_first/first' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/user_first' }">#首页</el-breadcrumb-item>
         <el-breadcrumb-item>用户中心</el-breadcrumb-item>
         <el-breadcrumb-item>我的反馈</el-breadcrumb-item>
-    </el-breadcrumb> -->
-
-        <a-page-header
-      class="header"
-      title="用户中心 ｜ 我的反馈"
-      @back="
-        () => {
-          this.$router.push({ path: '../user_first/first' });
-        }
-      "
-    />
+    </el-breadcrumb>
 
     <el-card >
         <!--搜索与添加区域-->
-        <el-row :gutter="20" >
-            <el-col :span='7'>
-                <el-input placeholder="请输入内容" v-model="id"
-                 >
-                    <el-button slot="append" icon="el-icon-search"
-                    ></el-button>
+        <el-row :gutter="100" >
+            <el-col :span='10'>
+                <el-input placeholder="请输入内容"  v-model="id">
+                    <el-button slot="append" icon="el-icon-search"></el-button>
                 </el-input>
             </el-col>
-            <el-col :span='4'>
+            <el-col :span='10'>
                 <router-link class='router' to='../user_first/feedback_form'>
-                        <el-button type="primary" @click="addDialogVisible = true">添加反馈</el-button>
+                        <el-button type="primary" @click="addDialogVisible = true" icon="el-icon-plus">添加反馈</el-button>
                         </router-link>
                 
             </el-col>
@@ -84,12 +72,12 @@
                   </a-descriptions-item>
                 </a-descriptions>
               </template >
-              <el-button type="text" >
-                详情
-              </el-button>
+              <el-button type="text" icon="el-icon-view" circle></el-button>
               
-              <el-button   @click="removeById(scope.row.id)">删除
-                </el-button>
+              <el-button @click="removeById(scope.row.id)" type="text" icon="el-icon-delete" circle></el-button>
+              
+              
+              
                          
           </a-popover>
           <!-- <a-button type="primary" style="height: 30px;line-width: 50px;line-height: 30px;display: inline;margin-left: 10px;" @click="showDrawer">
@@ -215,12 +203,12 @@ export default {
         //按照日期对反馈进行排序
         this.arrSortByTime(this.testTableData);
         console.log(this.testTableData.length);
-        //计算page总数，定义每页放4个反馈
+        //计算page总数，定义每页放8个反馈
         this.pagecount =
-          this.testTableData.length % 4 === 0
-            ? this.testTableData.length / 4
-            : (this.testTableData.length - (this.testTableData.length % 4)) /
-                4 +
+          this.testTableData.length % 8 === 0
+            ? this.testTableData.length / 8
+            : (this.testTableData.length - (this.testTableData.length % 8)) /
+                8 +
               1;
         console.log(this.pagecount);
     this.getTable(1);
@@ -245,7 +233,7 @@ export default {
       });
     },
     getTable(currentPage) {
-      this.pagesize = 4;
+      this.pagesize = 8;
       //通过当前页数和每页限制条数 从总数组上分割要显示的数组
       this.showTableData = this.testTableData.slice(
         (currentPage - 1) * this.pagesize,

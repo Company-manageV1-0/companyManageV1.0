@@ -202,7 +202,7 @@ methods:{
     .login{
         height:300px;
         width: 400px;
-        /* border:1px solid white; */
+        border:1px solid white;
         position: absolute;
         top: 50%;
         left: 50%;
