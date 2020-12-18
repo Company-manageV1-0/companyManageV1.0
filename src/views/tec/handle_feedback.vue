@@ -63,7 +63,7 @@
                 详情
               </a-button>
           </a-popover>
-          <a-button type="primary" style="height: 30px;line-width: 50px;line-height: 30px;display: inline;margin-left: 10px;" @click="showDrawer(showTableData[scope.$index].id, (showTableData[scope.$index].solution?showTableData[scope.$index].solution:'无'))"> 处理 </a-button>
+          <a-button type="primary" style="height: 30px;line-width: 50px;line-height: 30px;display: inline;margin-left: 10px;" @click="showDrawer(showTableData[scope.$index].id, (showTableData[scope.$index].solution ? showTableData[scope.$index].solution : '无'))"> 处理 </a-button>
           <a-drawer title="用户反馈处理" :width="410" :visible="maskVisible" :mask="true" :maskStyle="{'opacity':'0.1','background':'rgba(0,0,0,0.25)','animation':'none'}"
             :maskClosable="true" :body-style="{ paddingBottom: '80px' }" @close="onClose" >
             <a-form :form="form" layout="vertical" hide-required-mark>
@@ -71,19 +71,12 @@
               <a-row :gutter="16">
                 <a-col :span="24">
                   <a-form-item label="解决方式">
-                    <a-textarea
-                      :defaultValue="solutionTextVal"
-                      :value="solutionText"
-                      v-decorator="[
-                        'description',
-                        {
-                          rules: [{ required: true, message: 'Please enter url description' }],
-                        },
-                      ]"
-                      :auto-size="{ minRows: 3, maxRows: 9 }"
-                      placeholder="请输入该反馈信息的解决方式"
-                      @change="handleSolutiontextChange">
-                    </a-textarea>
+                    <!-- <input name="文章作者" type="text" class="textbox" id="textbox"> -->
+                  <form name="form1">
+                  <input type="text" class=box1 id=login
+                    onmouseover="this.className='box2'" onMouseOut="this.className='box1'"
+                    name=login value=''>
+                  </form>
                   </a-form-item>
                 </a-col>
               </a-row>
@@ -155,16 +148,19 @@ export default {
     /**TODO onpost的提交操作 */
     //submit ths updated form
     onPost(scopeIndex){
+      console.log("value:" + document.form1.login.value);
+      solutionTextVal = document.form1.login.value;   
       this.postAllFeedbackData(this.showTableData[scopeIndex].id);
       this.onClose(scopeIndex);
     },
 
-    handleSolutiontextChange(value){
-      console.log(value)
-      // console.log(this.solutionText)
-      this.$emit('handleSolutiontextChange',value);
+    // handleSolutiontextChange(value){
+    //   console.log(solutionTextVal)
+    //   console.log(value)
+    //   // console.log(this.solutionText)
+    //   this.$emit('handleSolutiontextChange',value);
       
-    },
+    // },
 
     /**TODO 提交操作*/
     //post All Feedback data
@@ -301,4 +297,6 @@ export default {
   /* bottom: 45px; */
   margin-top: 15px;
 }
+.box1,.box2 { width:100%;  height:250px; line-height:100%; border:1px solid #A9BAC9;background:url(http://cn.yimg.com/i/mail/06/bg_box1.gif) no-repeat #fff; padding:0 6px; font-size:12px; }
+.box2 { border:1px solid #9ECC00;}
 </style>

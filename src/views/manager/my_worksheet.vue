@@ -151,7 +151,7 @@
                 <a-col :span="24">
                   <a-form-item label="解决方式">
                     <a-textarea
-                      :value="solutionTextVal"
+                      :value="solutionText"
                       v-decorator="[
                         'description',
                         {
@@ -161,7 +161,7 @@
                       :auto-size="{ minRows: 3, maxRows: 9 }"
                       placeholder="请输入该反馈信息的解决方式"
                       @change="handleSolutiontextChange">
-                    {{solutionText}}
+                    
                     </a-textarea>
                     
                     
