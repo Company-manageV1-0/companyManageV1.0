@@ -885,7 +885,7 @@ add_group_sure(){
           method:'post',
 
           params:{
-            premission:A+','+B+','+C+','+D+','+E+','+F+','+G+','+H+','+I+','+N+','+J+',' +L+','+L+','+M+','+W,
+            premission:A+','+B+','+C+','+D+','+E+','+F+','+G+','+H+','+I+','+N+','+J+',' +K+','+L+','+M+','+W,
             role:this.character
           }
         }).then(res=>{
